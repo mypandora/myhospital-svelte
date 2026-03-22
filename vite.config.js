@@ -15,13 +15,12 @@ export default defineConfig(({ mode }) => {
 					rewrite: (path) => path.replace(/^\/_AMapService/, ''),
 					configure: (proxy, options) => {
 						proxy.on('proxyReq', (proxyReq, req, res) => {
-							let originalUrl = new URL(req.url, `http://${req.headers.host}`);
+							const host = req.headers.host || 'localhost';
+							const originalUrl = new URL(req.url || '', `http://${host}`);
 							let searchParams = new URLSearchParams(originalUrl.search);
 
-							// Add the jscode parameter
-							searchParams.append('jscode', VITE_JSCODE);
+							searchParams.append('jscode', VITE_JSCODE || '');
 
-							// Set the modified search params back to the URL
 							proxyReq.path = `${originalUrl.pathname}?${searchParams.toString()}`;
 						});
 					}

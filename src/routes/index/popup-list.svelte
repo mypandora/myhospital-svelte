@@ -54,7 +54,7 @@
 </script>
 
 {#if hospitalList.length > 0}
-	<div class="absolute bottom-4 left-4 top-4 w-96 space-y-2 bg-white p-2 shadow">
+	<div class="absolute top-4 bottom-4 left-4 w-96 space-y-2 bg-white p-2 shadow">
 		<div
 			class="flex items-center justify-between border-b border-gray-200 pb-2 dark:border-gray-700"
 		>

@@ -20,9 +20,9 @@
 
 {#if visible}
 	<!-- 使用 $state 来访问 store 值 -->
-	<div class="absolute left-0 top-0 z-50 h-1 w-full">
+	<div class="absolute top-0 left-0 z-50 h-1 w-full">
 		<div
-			class="absolute left-0 top-0 h-full bg-[#5cb85c] transition-all"
+			class="absolute top-0 left-0 h-full bg-[#5cb85c] transition-all"
 			style="width: {p * 100}%"
 		></div>
 	</div>

@@ -14,10 +14,16 @@ export default [
 			globals: {
 				...globals.browser,
 				...globals.node
-			}
+			},
+			ecmaVersion: 'latest',
+			sourceType: 'module'
+		},
+		rules: {
+			'@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+			'@typescript-eslint/no-explicit-any': 'warn'
 		}
 	},
 	{
-		ignores: ['build/', '.svelte-kit/', 'dist/']
+		ignores: ['build/', '.svelte-kit/', 'dist/', 'node_modules/']
 	}
 ];

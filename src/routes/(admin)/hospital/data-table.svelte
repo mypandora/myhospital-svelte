@@ -146,7 +146,7 @@
 			/>
 			<Select.Root type="single" bind:value={hospitalType} onValueChange={handleTypeChange}>
 				<Select.Trigger
-					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 inline-flex w-[296px] select-none items-center border bg-background px-[11px] text-sm transition-colors"
+					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 bg-background inline-flex w-[296px] items-center border px-[11px] text-sm transition-colors select-none"
 					aria-label="请选择医院类型"
 				>
 					{hospitalType}
@@ -163,7 +163,7 @@
 			</Select.Root>
 			<Select.Root type="single" bind:value={hospitalLvl}>
 				<Select.Trigger
-					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 inline-flex w-[296px] select-none items-center border bg-background px-[11px] text-sm transition-colors"
+					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 bg-background inline-flex w-[296px] items-center border px-[11px] text-sm transition-colors select-none"
 					aria-label="请选择医院评级"
 				>
 					{hospitalLvl}
@@ -235,7 +235,7 @@
 		</Table.Root>
 	</div>
 	<div class="flex items-center justify-end space-x-2 py-4">
-		<div class="flex-1 text-sm text-muted-foreground">
+		<div class="text-muted-foreground flex-1 text-sm">
 			{table.getFilteredSelectedRowModel().rows.length} / {table.getFilteredRowModel().rows.length}
 		</div>
 

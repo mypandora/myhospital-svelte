@@ -131,7 +131,7 @@
 			<Sheet.Description class="">使用鼠标在地图上选择正确的地址。</Sheet.Description>
 		</Sheet.Header>
 		<div id="map" class="my-2 h-[calc(100%-100px)] w-full"></div>
-		<div class="absolute bottom-20 right-10 rounded bg-slate-400 p-2">
+		<div class="absolute right-10 bottom-20 rounded bg-slate-400 p-2">
 			经度: <span>{lng || 'N/A'}</span>, 纬度: <span>{lat || 'N/A'}</span>
 		</div>
 
