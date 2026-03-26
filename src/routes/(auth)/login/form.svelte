@@ -44,7 +44,8 @@
 
 	<div class="flex items-center justify-between">
 		<Checkbox id="remember-me" class="mr-2" />
-		<Label id="terms-label" for="remember-me" class="text-sm leading-none font-medium">记住我</Label>
+		<Label id="terms-label" for="remember-me" class="text-sm leading-none font-medium">记住我</Label
+		>
 		<a href="/forgot" class="ml-auto text-sm font-medium hover:underline">忘记密码</a>
 	</div>
 

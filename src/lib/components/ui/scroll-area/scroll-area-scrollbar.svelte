@@ -2,7 +2,13 @@
 	import { ScrollArea as ScrollAreaPrimitive } from 'bits-ui';
 	import { cn } from '$lib/utils.js';
 
-	let { ref = $bindable(null), class: className, orientation = 'vertical', children, ...restProps } = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		orientation = 'vertical',
+		children,
+		...restProps
+	} = $props();
 </script>
 
 <ScrollAreaPrimitive.Scrollbar
@@ -18,5 +24,8 @@
 	{...restProps}
 >
 	{@render children?.()}
-	<ScrollAreaPrimitive.Thumb data-slot="scroll-area-thumb" class="bg-border relative flex-1 rounded-full" />
+	<ScrollAreaPrimitive.Thumb
+		data-slot="scroll-area-thumb"
+		class="relative flex-1 rounded-full bg-border"
+	/>
 </ScrollAreaPrimitive.Scrollbar>

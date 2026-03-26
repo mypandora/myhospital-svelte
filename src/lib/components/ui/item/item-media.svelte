@@ -21,6 +21,11 @@
 	let { class: className, children, variant = 'default', ...restProps } = $props();
 </script>
 
-<div data-slot="item-media" data-variant={variant} class={cn(itemMediaVariants({ variant }), className)} {...restProps}>
+<div
+	data-slot="item-media"
+	data-variant={variant}
+	class={cn(itemMediaVariants({ variant }), className)}
+	{...restProps}
+>
 	{@render children?.()}
 </div>

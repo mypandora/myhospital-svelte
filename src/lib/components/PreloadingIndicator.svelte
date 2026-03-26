@@ -21,11 +21,16 @@
 {#if visible}
 	<!-- 使用 $state 来访问 store 值 -->
 	<div class="absolute top-0 left-0 z-50 h-1 w-full">
-		<div class="absolute top-0 left-0 h-full bg-[#5cb85c] transition-all" style="width: {p * 100}%"></div>
+		<div
+			class="absolute top-0 left-0 h-full bg-[#5cb85c] transition-all"
+			style="width: {p * 100}%"
+		></div>
 	</div>
 {/if}
 
 {#if p >= 0.4}
 	<!-- 根据 p 的值显示遮罩层 -->
-	<div class="animate-fade pointer-events-none fixed z-40 h-full w-full bg-[rgba(255,255,255,0.3)]"></div>
+	<div
+		class="animate-fade pointer-events-none fixed z-40 h-full w-full bg-[rgba(255,255,255,0.3)]"
+	></div>
 {/if}

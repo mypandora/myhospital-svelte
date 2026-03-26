@@ -34,7 +34,9 @@
 	<ul class="space-y-2 text-gray-500 dark:text-gray-400">
 		<li class="gap-3">
 			<span class="mr-2 text-gray-900">医院名称</span>
-			<button class="mr-2 text-gray-900" onclick={() => handleDetail(hospital?.name)}>{hospital?.name}</button>
+			<button class="mr-2 text-gray-900" onclick={() => handleDetail(hospital?.name)}
+				>{hospital?.name}</button
+			>
 		</li>
 		<li class="gap-3">
 			<span class="mr-2 text-gray-900">医院编码</span>

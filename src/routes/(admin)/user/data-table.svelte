@@ -1,5 +1,10 @@
 <script>
-	import { getCoreRowModel, getPaginationRowModel, getSortedRowModel, getFilteredRowModel } from '@tanstack/table-core';
+	import {
+		getCoreRowModel,
+		getPaginationRowModel,
+		getSortedRowModel,
+		getFilteredRowModel
+	} from '@tanstack/table-core';
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -124,7 +129,10 @@
 						{#each headerGroup.headers as header (header.id)}
 							<Table.Head class="">
 								{#if !header.isPlaceholder}
-									<FlexRender content={header.column.columnDef.header} context={header.getContext()} />
+									<FlexRender
+										content={header.column.columnDef.header}
+										context={header.getContext()}
+									/>
 								{/if}
 							</Table.Head>
 						{/each}
@@ -149,7 +157,7 @@
 		</Table.Root>
 	</div>
 	<div class="flex items-center justify-end space-x-2 py-4">
-		<div class="text-muted-foreground flex-1 text-sm">
+		<div class="flex-1 text-sm text-muted-foreground">
 			{table.getFilteredSelectedRowModel().rows.length} / {table.getFilteredRowModel().rows.length}
 		</div>
 		<Button
@@ -159,8 +167,12 @@
 			onclick={() => table.previousPage()}
 			disabled={!table.getCanPreviousPage()}>上一页</Button
 		>
-		<Button class="" variant="outline" size="sm" onclick={() => table.nextPage()} disabled={!table.getCanNextPage()}
-			>下一页</Button
+		<Button
+			class=""
+			variant="outline"
+			size="sm"
+			onclick={() => table.nextPage()}
+			disabled={!table.getCanNextPage()}>下一页</Button
 		>
 	</div>
 </div>

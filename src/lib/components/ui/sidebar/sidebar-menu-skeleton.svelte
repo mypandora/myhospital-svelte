@@ -1,7 +1,13 @@
 <script>
 	import { cn } from '$lib/utils.js';
 	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
-	let { ref = $bindable(null), class: className, showIcon = false, children, ...restProps } = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		showIcon = false,
+		children,
+		...restProps
+	} = $props();
 
 	// Random width between 50% and 90%
 	const width = `${Math.floor(Math.random() * 40) + 50}%`;

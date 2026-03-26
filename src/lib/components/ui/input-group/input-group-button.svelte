@@ -21,9 +21,22 @@
 	import { cn } from '$lib/utils.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 
-	let { class: className, children, type = 'button', variant = 'ghost', size = 'xs', ...restProps } = $props();
+	let {
+		class: className,
+		children,
+		type = 'button',
+		variant = 'ghost',
+		size = 'xs',
+		...restProps
+	} = $props();
 </script>
 
-<Button {type} data-size={size} {variant} class={cn(inputGroupButtonVariants({ size }), className)} {...restProps}>
+<Button
+	{type}
+	data-size={size}
+	{variant}
+	class={cn(inputGroupButtonVariants({ size }), className)}
+	{...restProps}
+>
 	{@render children?.()}
 </Button>

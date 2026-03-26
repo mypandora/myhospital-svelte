@@ -241,7 +241,7 @@
 		<div id="chinaMap" class="h-full object-cover"></div>
 	</div>
 	<div
-		class="bg-background flex w-full items-center justify-center rounded-xl p-6 shadow sm:max-w-md lg:w-2/5 lg:max-w-full lg:rounded-none lg:p-14 lg:shadow-none"
+		class="flex w-full items-center justify-center rounded-xl bg-background p-6 shadow sm:max-w-md lg:w-2/5 lg:max-w-full lg:rounded-none lg:p-14 lg:shadow-none"
 	>
 		<div class="w-full max-w-md space-y-8">
 			<div class="text-center">
@@ -249,13 +249,19 @@
 			</div>
 
 			<div class="flex flex-row items-center justify-center space-x-3">
-				<Button class="bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-[#3b5998]/50 dark:focus:ring-[#3b5998]/55">
+				<Button
+					class="bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-[#3b5998]/50 dark:focus:ring-[#3b5998]/55"
+				>
 					<Facebook class="h-6 w-6" />
 				</Button>
-				<Button class="bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-[#1da1f2]/50 dark:focus:ring-[#1da1f2]/55">
+				<Button
+					class="bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-[#1da1f2]/50 dark:focus:ring-[#1da1f2]/55"
+				>
 					<Twitter class="h-6 w-6" />
 				</Button>
-				<Button class="bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55">
+				<Button
+					class="bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
+				>
 					<GoogleSolid class="h-6 w-6" />
 				</Button>
 				<Button

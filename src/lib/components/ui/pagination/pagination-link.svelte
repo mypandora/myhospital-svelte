@@ -3,7 +3,15 @@
 	import { cn } from '$lib/utils.js';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 
-	let { ref = $bindable(null), class: className, size = 'icon', isActive, page, children, ...restProps } = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		size = 'icon',
+		isActive,
+		page,
+		children,
+		...restProps
+	} = $props();
 </script>
 
 {#snippet Fallback()}

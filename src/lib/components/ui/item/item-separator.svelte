@@ -4,4 +4,9 @@
 	let { class: className, ...restProps } = $props();
 </script>
 
-<Separator data-slot="item-separator" orientation="horizontal" class={cn('my-0', className)} {...restProps} />
+<Separator
+	data-slot="item-separator"
+	orientation="horizontal"
+	class={cn('my-0', className)}
+	{...restProps}
+/>

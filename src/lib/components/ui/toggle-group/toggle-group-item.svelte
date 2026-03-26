@@ -4,7 +4,14 @@
 	import { cn } from '$lib/utils.js';
 	import { toggleVariants } from '$lib/components/ui/toggle/index.js';
 
-	let { ref = $bindable(null), value = $bindable(), class: className, size, variant, ...restProps } = $props();
+	let {
+		ref = $bindable(null),
+		value = $bindable(),
+		class: className,
+		size,
+		variant,
+		...restProps
+	} = $props();
 
 	const ctx = getToggleGroupCtx();
 </script>

@@ -5,7 +5,11 @@ import * as api from '$lib/api.js';
 export async function PATCH({ request, cookies }) {
 	const { id, status } = await request.json();
 
-	const body = await api.patch(`users/${id}`, { status: { id: status === 'Active' ? 1 : 2 } }, { cookies });
+	const body = await api.patch(
+		`users/${id}`,
+		{ status: { id: status === 'Active' ? 1 : 2 } },
+		{ cookies }
+	);
 
 	return json({
 		body

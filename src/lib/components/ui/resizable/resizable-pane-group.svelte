@@ -2,7 +2,12 @@
 	import * as ResizablePrimitive from 'paneforge';
 	import { cn } from '$lib/utils.js';
 
-	let { ref = $bindable(null), this: paneGroup = $bindable(), class: className, ...restProps } = $props();
+	let {
+		ref = $bindable(null),
+		this: paneGroup = $bindable(),
+		class: className,
+		...restProps
+	} = $props();
 </script>
 
 <ResizablePrimitive.PaneGroup

@@ -1,6 +1,13 @@
 <script>
 	import { cn } from '$lib/utils.js';
-	let { ref = $bindable(null), class: className, showOnHover = false, children, child, ...restProps } = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		showOnHover = false,
+		children,
+		child,
+		...restProps
+	} = $props();
 
 	const mergedProps = $derived({
 		class: cn(

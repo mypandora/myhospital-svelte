@@ -54,7 +54,12 @@
 			</Button>
 		</DropdownMenu.Item>
 		<DropdownMenu.Item class="" inset>
-			<Button variant="ghost" size="icon" class="relative size-8 p-0" onclick={() => (dialogOpen = true)}>
+			<Button
+				variant="ghost"
+				size="icon"
+				class="relative size-8 p-0"
+				onclick={() => (dialogOpen = true)}
+			>
 				<MapPin class="size-4" />
 				定位
 			</Button>

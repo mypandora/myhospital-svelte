@@ -88,7 +88,8 @@ async function handleTokenRefreshAndRetry({ method, url, data, headers, cookies 
 
 	const { refreshToken, user } = JSON.parse(jwt);
 	try {
-		const { token: newToken, refreshToken: newRefreshToken } = await refreshAccessToken(refreshToken);
+		const { token: newToken, refreshToken: newRefreshToken } =
+			await refreshAccessToken(refreshToken);
 
 		// Update cookies with new tokens
 		const updatedJwt = JSON.stringify({ token: newToken, refreshToken: newRefreshToken, user });

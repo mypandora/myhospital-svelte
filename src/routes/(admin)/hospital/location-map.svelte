@@ -7,7 +7,14 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 
-	let { id, dialogOpen = $bindable(), name, address, longitude = 116.397861, latitude = 39.900401 } = $props();
+	let {
+		id,
+		dialogOpen = $bindable(),
+		name,
+		address,
+		longitude = 116.397861,
+		latitude = 39.900401
+	} = $props();
 	/**	@type {AMap.Map} */
 	let map;
 	/** @type {AMap.Marker} */

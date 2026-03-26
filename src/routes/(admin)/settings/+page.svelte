@@ -18,37 +18,51 @@
 			<ul class="flex flex-col bg-transparent p-4 text-neutral-800 opacity-100 shadow-none">
 				<li class="bg-transparent pt-0 text-neutral-800 opacity-100 shadow-none">
 					<a href="#/">
-						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">个人简介</div>
+						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">
+							个人简介
+						</div>
 					</a>
 				</li>
 				<li class="bg-transparent pt-0 text-neutral-800 opacity-100 shadow-none">
 					<a href="#/">
-						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">基本信息</div>
+						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">
+							基本信息
+						</div>
 					</a>
 				</li>
 				<li class="bg-transparent pt-0 text-neutral-800 opacity-100 shadow-none">
 					<a href="#/">
-						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">修改密码</div>
+						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">
+							修改密码
+						</div>
 					</a>
 				</li>
 				<li class="bg-transparent pt-0 text-neutral-800 opacity-100 shadow-none">
 					<a href="#/">
-						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">个人简介</div>
+						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">
+							个人简介
+						</div>
 					</a>
 				</li>
 				<li class="bg-transparent pt-0 text-neutral-800 opacity-100 shadow-none">
 					<a href="#/">
-						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">账号</div>
+						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">
+							账号
+						</div>
 					</a>
 				</li>
 				<li class="bg-transparent pt-0 text-neutral-800 opacity-100 shadow-none">
 					<a href="#/">
-						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">通知设置</div>
+						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">
+							通知设置
+						</div>
 					</a>
 				</li>
 				<li class="bg-transparent pt-0 text-neutral-800 opacity-100 shadow-none">
 					<a href="#/">
-						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">删除账号</div>
+						<div class="mr-3 bg-transparent leading-none text-neutral-800 opacity-100 shadow-none">
+							删除账号
+						</div>
 					</a>
 				</li>
 			</ul>

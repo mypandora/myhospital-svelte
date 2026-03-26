@@ -14,7 +14,13 @@ export async function load({ locals, url, cookies }) {
 	 * @property {string} [sort]
 	 */
 	/** @type {QueryParams} */
-	const { page = '1', limit = '10', type = '', lvl = '', sort = 'zipCode,asc' } = Object.fromEntries(url.searchParams);
+	const {
+		page = '1',
+		limit = '10',
+		type = '',
+		lvl = '',
+		sort = 'zipCode,asc'
+	} = Object.fromEntries(url.searchParams);
 
 	const sortParam = sort.split('&').map((param) => {
 		const [id, order] = param.split(',');
@@ -57,7 +63,9 @@ function createParams({ page, limit, sort, filter }) {
 	params.set('sort', JSON.stringify(sort));
 
 	// 如果 filter 存在有效属性，则添加到参数中
-	const cleanedFilter = Object.fromEntries(Object.entries(filter).filter(([, value]) => value !== ''));
+	const cleanedFilter = Object.fromEntries(
+		Object.entries(filter).filter(([, value]) => value !== '')
+	);
 	if (Object.keys(cleanedFilter).length > 0) {
 		params.set('filter', JSON.stringify(cleanedFilter));
 	}

@@ -78,7 +78,8 @@
 	function toggleTheme() {
 		if (mode.current === 'dark') {
 			// 设置地图的显示样式
-			map?.setMapStyle('amap://styles/dark');
+			// map?.setMapStyle('amap://styles/dark');
+			map?.setMapStyle('amap://styles/normal');
 		} else {
 			map?.setMapStyle('amap://styles/normal');
 		}
@@ -375,7 +376,7 @@
 	<title>首页</title>
 </svelte:head>
 
-<div id="map" class="h-dvh"></div>
+<div id="map" class="relative flex h-dvh min-h-screen flex-col"></div>
 
 <!-- 某个医院的详情弹框 -->
 <HospitalDetail {hospital} bind:domRef={popupDetail} />

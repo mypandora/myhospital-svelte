@@ -4,4 +4,9 @@
 	let { class: className, ...restProps } = $props();
 </script>
 
-<Loader2Icon role="status" aria-label="Loading" class={cn('size-4 animate-spin', className)} {...restProps} />
+<Loader2Icon
+	role="status"
+	aria-label="Loading"
+	class={cn('size-4 animate-spin', className)}
+	{...restProps}
+/>

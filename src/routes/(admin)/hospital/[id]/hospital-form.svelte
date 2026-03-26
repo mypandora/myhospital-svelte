@@ -103,7 +103,9 @@
 	</Form.Field>
 
 	<div class="flex justify-center gap-6">
-		<Form.Button type="button" color="purpleToBlue" class="" onclick={() => goto('/hospital')}>取消</Form.Button>
+		<Form.Button type="button" color="purpleToBlue" class="" onclick={() => goto('/hospital')}
+			>取消</Form.Button
+		>
 		<Form.Button type="submit" color="purpleToBlue" class="">保存</Form.Button>
 	</div>
 </form>
