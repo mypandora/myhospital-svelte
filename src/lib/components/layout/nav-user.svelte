@@ -3,7 +3,7 @@
 	import { useSidebar } from '$lib/components/ui/sidebar/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Avatar from '$lib/components/ui/avatar';
-	import ChevronsUpDown from 'lucide-svelte/icons/chevrons-up-down';
+	import ChevronsUpDown from '@lucide/svelte/icons/chevrons-up-down';
 	import LoginPop from './login-pop.svelte';
 
 	let { user } = $props();

@@ -1,8 +1,7 @@
 import * as api from '$lib/api.js';
 
 /**
- *
- * 同步医院
+ * 查询医院
  * @type {import('./$types').RequestHandler}
  *
  */

@@ -6,7 +6,7 @@ import * as api from '$lib/api.js';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, cookies, params }) {
-	if (!locals.user) redirect(302, `/login`);
+	if (!locals.user) redirect(302, '/login');
 
 	/** @type {import('../types').User} */
 	const user = await api.get(`users/${params.id}`, { cookies });
@@ -42,15 +42,15 @@ export const actions = {
 			return fail(401, body);
 		}
 
-		throw redirect(307, '/user');
+		redirect(307, '/user');
 	},
 	delete: async ({ locals, request, cookies }) => {
-		if (!locals.user) throw error(401);
+		if (!locals.user) error(401);
 
 		const data = await request.formData();
 		const id = data.get('id');
 
 		await api.del(`users/${id}`, { cookies });
-		throw redirect(307, '/user');
+		redirect(307, '/user');
 	}
 };

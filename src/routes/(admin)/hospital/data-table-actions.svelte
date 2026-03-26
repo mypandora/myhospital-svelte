@@ -1,5 +1,5 @@
 <script>
-	import { Copy, MapPin, Pencil, Trash2, Ellipsis } from 'lucide-svelte';
+	import { Copy, MapPin, Pencil, Trash2, Ellipsis } from '@lucide/svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Button } from '$lib/components/ui/button';
 	import { goto, invalidate } from '$app/navigation';
@@ -79,4 +79,6 @@
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
 
-<LocationMap {id} {name} {address} bind:dialogOpen {longitude} {latitude} />
+{#if dialogOpen}
+	<LocationMap {id} {name} {address} bind:dialogOpen {longitude} {latitude} />
+{/if}

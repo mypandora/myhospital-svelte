@@ -6,7 +6,7 @@ import * as api from '$lib/api.js';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, cookies, params }) {
-	if (!locals.user) redirect(302, `/login`);
+	if (!locals.user) redirect(302, '/login');
 
 	/** @type {import('../types').Hospital} */
 	const hospital = await api.get(`hospitals/${params.id}`, { cookies });
@@ -48,6 +48,6 @@ export const actions = {
 			return fail(401, body);
 		}
 
-		throw redirect(307, '/hospital');
+		redirect(307, '/hospital');
 	}
 };

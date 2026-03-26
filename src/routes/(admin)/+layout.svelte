@@ -1,6 +1,6 @@
 <script>
-	import { navigating } from '$app/stores';
-	import PreloadingIndicator from '$lib/components/PreloadingIndicator.svelte';
+	// import { navigating } from '$app/state';
+	// import PreloadingIndicator from '$lib/components/PreloadingIndicator.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import AppSidebar from '$lib/components/layout/app-sidebar.svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
@@ -11,9 +11,9 @@
 	let { children } = $props();
 </script>
 
-{#if $navigating}
+<!-- {#if navigating}
 	<PreloadingIndicator />
-{/if}
+{/if} -->
 
 <Sidebar.Provider class="" style="">
 	<AppSidebar />

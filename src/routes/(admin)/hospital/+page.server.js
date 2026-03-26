@@ -1,19 +1,36 @@
-import { error } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import * as api from '$lib/api';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, url, cookies }) {
-	if (!locals.user) {
-		throw error(401);
-	}
+	if (!locals.user) redirect(302, '/login');
 
-	/** @type {{page:string, limit:string, type:string, lvl:string}} */
-	const { page = '1', limit = '10', type = '', lvl = '' } = Object.fromEntries(url.searchParams);
+	/**
+	 * @typedef {Object} QueryParams
+	 * @property {string} [page]
+	 * @property {string} [limit]
+	 * @property {string} [type]
+	 * @property {string} [lvl]
+	 * @property {string} [sort]
+	 */
+	/** @type {QueryParams} */
+	const {
+		page = '1',
+		limit = '10',
+		type = '',
+		lvl = '',
+		sort = 'zipCode,asc'
+	} = Object.fromEntries(url.searchParams);
+
+	const sortParam = sort.split('&').map((param) => {
+		const [id, order] = param.split(',');
+		return { orderBy: id, order: order || 'asc' };
+	});
 
 	const params = createParams({
 		page,
 		limit,
-		sort: [{ orderBy: 'code', order: 'ASC' }],
+		sort: sortParam,
 		filter: {
 			type,
 			lvl
@@ -24,8 +41,8 @@ export async function load({ locals, url, cookies }) {
 	return {
 		hospitals: data,
 		total: total,
-		page: parseInt(page),
-		limit: parseInt(limit),
+		page: parseInt(page, 10),
+		limit: parseInt(limit, 10),
 		type,
 		lvl
 	};
@@ -47,7 +64,7 @@ function createParams({ page, limit, sort, filter }) {
 
 	// 如果 filter 存在有效属性，则添加到参数中
 	const cleanedFilter = Object.fromEntries(
-		Object.entries(filter).filter(([_, value]) => value !== '')
+		Object.entries(filter).filter(([, value]) => value !== '')
 	);
 	if (Object.keys(cleanedFilter).length > 0) {
 		params.set('filter', JSON.stringify(cleanedFilter));

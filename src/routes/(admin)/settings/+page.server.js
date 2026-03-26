@@ -8,9 +8,7 @@ import { formSchema as passwordFormSchema } from './password-schema';
 import * as api from '$lib/api.js';
 
 export async function load({ locals }) {
-	if (!locals.user) {
-		throw redirect(302, `/login`);
-	}
+	if (!locals.user) redirect(302, '/login');
 	return {
 		basicForm: await superValidate(zod(basicFormSchema)),
 		passwordForm: await superValidate(zod(passwordFormSchema))
@@ -20,9 +18,7 @@ export async function load({ locals }) {
 /** @type {import('./$types').Actions} */
 export const actions = {
 	upload: async ({ cookies, locals, request }) => {
-		if (!locals.user) {
-			throw error(401);
-		}
+		if (!locals.user) error(401);
 
 		const data = await request.formData();
 
@@ -42,9 +38,7 @@ export const actions = {
 		locals.user = body.user;
 	},
 	save: async ({ cookies, locals, request }) => {
-		if (!locals.user) {
-			throw error(401);
-		}
+		if (!locals.user) error(401);
 
 		const data = await request.formData();
 

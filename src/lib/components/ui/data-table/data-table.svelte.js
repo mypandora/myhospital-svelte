@@ -68,33 +68,58 @@ export function createSvelteTable(options) {
 }
 
 /**
- * Merges objects together while keeping their getters alive.
- * Taken from SolidJS: {@link https://github.com/solidjs/solid/blob/24abc825c0996fd2bc8c1de1491efe9a7e743aff/packages/solid/src/server/rendering.ts#L82-L115}
+ * Lazily merges several objects (or thunks) while preserving
+ * getter semantics from every source.
+ *
+ * Proxy-based to avoid known WebKit recursion issue.
  */
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mergeObjects(...sources) {
-	const target = {};
-	for (let i = 0; i < sources.length; i++) {
-		let source = sources[i];
-		if (typeof source === 'function') source = source();
-		if (source) {
-			const descriptors = Object.getOwnPropertyDescriptors(source);
-			for (const key in descriptors) {
-				if (key in target) continue;
-				Object.defineProperty(target, key, {
-					enumerable: true,
-					get() {
-						for (let i = sources.length - 1; i >= 0; i--) {
-							let s = sources[i];
-							if (typeof s === 'function') s = s();
-							const v = (s || {})[key];
-							if (v !== undefined) return v;
-						}
-					}
-				});
-			}
+export function mergeObjects(...sources) {
+	const resolve = (src) => (typeof src === 'function' ? (src() ?? undefined) : src);
+
+	const findSourceWithKey = (key) => {
+		for (let i = sources.length - 1; i >= 0; i--) {
+			const obj = resolve(sources[i]);
+			if (obj && key in obj) return obj;
 		}
-	}
-	return target;
+		return undefined;
+	};
+
+	return new Proxy(Object.create(null), {
+		get(_, key) {
+			const src = findSourceWithKey(key);
+
+			return src?.[key];
+		},
+
+		has(_, key) {
+			return !!findSourceWithKey(key);
+		},
+
+		ownKeys() {
+			// eslint-disable-next-line svelte/prefer-svelte-reactivity
+			const all = new Set();
+			for (const s of sources) {
+				const obj = resolve(s);
+				if (obj) {
+					for (const k of Reflect.ownKeys(obj)) {
+						all.add(k);
+					}
+				}
+			}
+			return [...all];
+		},
+
+		getOwnPropertyDescriptor(_, key) {
+			const src = findSourceWithKey(key);
+			if (!src) return undefined;
+			return {
+				configurable: true,
+				enumerable: true,
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				value: src[key],
+				writable: true
+			};
+		}
+	});
 }

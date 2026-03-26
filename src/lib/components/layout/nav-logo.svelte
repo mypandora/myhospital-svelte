@@ -1,6 +1,6 @@
 <script>
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import Command from 'lucide-svelte/icons/command';
+	import Command from '@lucide/svelte/icons/command';
 </script>
 
 <Sidebar.Menu class="">

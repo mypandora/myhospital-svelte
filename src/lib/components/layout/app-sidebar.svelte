@@ -1,6 +1,6 @@
 <script>
-	import { page } from '$app/stores';
-	import { Users, House, Hospital } from 'lucide-svelte';
+	import { page } from '$app/state';
+	import { Users, House, Hospital } from '@lucide/svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import NavLogo from '$lib/components/layout/nav-logo.svelte';
 	import NavUser from '$lib/components/layout/nav-user.svelte';
@@ -27,8 +27,8 @@
 		}
 	];
 
-	const user = $page.data?.user;
-	let currentUrl = $derived($page.data?.pathname);
+	const user = page.data?.user;
+	let currentUrl = $derived(page.data?.pathname);
 	const currentMenuItem = items.find((item) => item.url === currentUrl);
 	selectedMenuItem.set(currentMenuItem);
 </script>

@@ -6,9 +6,7 @@ import * as api from '$lib/api.js';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals }) {
-	if (locals.user) {
-		throw redirect(307, '/');
-	}
+	if (locals.user) redirect(307, '/');
 
 	const form = await superValidate(zod(formSchema));
 
@@ -36,6 +34,6 @@ export const actions = {
 		const value = JSON.stringify(body);
 		cookies.set('jwt', value, { path: '/' });
 
-		throw redirect(307, '/');
+		redirect(307, '/');
 	}
 };

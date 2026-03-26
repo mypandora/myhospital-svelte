@@ -1,9 +1,9 @@
-<script>
-	import {
-		RenderComponentConfig,
-		RenderSnippetConfig
-	} from '$lib/components/ui/data-table/render-helpers.js';
-	let { content, context } = $props();
+<script
+	lang="ts"
+	generics="TData, TValue, TContext extends HeaderContext<TData, TValue> | CellContext<TData, TValue>"
+>
+	import { RenderComponentConfig, RenderSnippetConfig } from './render-helpers.js';
+	let { content, context, attach } = $props();
 </script>
 
 {#if typeof content === 'string'}
@@ -14,10 +14,10 @@
 	{@const result = content(context)}
 	{#if result instanceof RenderComponentConfig}
 		{@const { component: Component, props } = result}
-		<Component {...props} />
+		<Component {...props} {attach} />
 	{:else if result instanceof RenderSnippetConfig}
 		{@const { snippet, params } = result}
-		{@render snippet(params)}
+		{@render snippet({ ...params, attach })}
 	{:else}
 		{result}
 	{/if}

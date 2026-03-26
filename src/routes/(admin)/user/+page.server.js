@@ -3,9 +3,7 @@ import * as api from '$lib/api.js';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, url, cookies }) {
-	if (!locals.user) {
-		throw error(401);
-	}
+	if (!locals.user) redirect(302, '/login');
 
 	const page = url.searchParams.get('page') ?? 1;
 	const limit = url.searchParams.get('limit') || 10;
@@ -25,12 +23,15 @@ export async function load({ locals, url, cookies }) {
 /** @type {import('./$types').Actions} */
 export const actions = {
 	delete: async ({ locals, request, cookies }) => {
-		if (!locals.user) throw error(401);
+		if (!locals.user) error(401);
 
 		const data = await request.formData();
 		const id = data.get('id');
 
 		await api.del(`users/${id}`, { cookies });
-		throw redirect(307, '/user');
+		// const result = await api.del(`users/${id}`, { cookies });
+		// if (result.error) error(result.status, result.error);
+
+		redirect(307, '/user');
 	}
 };

@@ -1,5 +1,6 @@
 import { renderComponent } from '$lib/components/ui/data-table/index.js';
 import DataTableActions from './data-table-actions.svelte';
+import DataTableNameButton from './data-table-name-button.svelte';
 import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 
 /** @type {import('@tanstack/table-core').ColumnDef<import('./types').Hospital>[]} */
@@ -28,11 +29,15 @@ export const columns = [
 	},
 	{
 		accessorKey: 'name',
-		header: '医院名称'
+		header: ({ column }) =>
+			renderComponent(DataTableNameButton, {
+				onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+			})
 	},
 	{
 		accessorKey: 'code',
-		header: '医院编码'
+		header: '医院编码',
+		size: 270 //set column size for this column
 	},
 	{
 		accessorKey: 'lvl',

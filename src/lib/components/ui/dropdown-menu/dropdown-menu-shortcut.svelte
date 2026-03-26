@@ -1,5 +1,4 @@
 <script>
-	import {} from 'bits-ui';
 	import { cn } from '$lib/utils.js';
 
 	let { ref = $bindable(null), class: className, children, ...restProps } = $props();
@@ -7,7 +6,8 @@
 
 <span
 	bind:this={ref}
-	class={cn('ml-auto text-xs tracking-widest opacity-60', className)}
+	data-slot="dropdown-menu-shortcut"
+	class={cn('ml-auto text-xs tracking-widest text-muted-foreground', className)}
 	{...restProps}
 >
 	{@render children?.()}

@@ -11,11 +11,5 @@ export const handle = async ({ event, resolve }) => {
 	event.locals.token = token;
 	event.locals.refreshToken = refreshToken;
 
-	if (event.route.id?.startsWith('/(admin)')) {
-		if (!user || user.role.name !== 'Admin') {
-			return new Response('Unauthorized', { status: 401 });
-		}
-	}
-
 	return await resolve(event);
 };

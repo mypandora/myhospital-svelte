@@ -8,7 +8,7 @@ import * as api from '$lib/api.js';
 export async function load({ parent }) {
 	const { user } = await parent();
 	if (user) {
-		throw redirect(307, '/');
+		redirect(307, '/');
 	}
 
 	return {
@@ -32,6 +32,6 @@ export const actions = {
 			return fail(401, body);
 		}
 
-		throw redirect(307, '/');
+		redirect(307, '/');
 	}
 };

@@ -1,13 +1,14 @@
 <script>
-	import { Menubar as MenubarPrimitive } from 'bits-ui';
 	import { cn } from '$lib/utils.js';
-	/** @type {{class?: any, inset?: any, children?: import('svelte').Snippet, [key: string]: any}} */
-	let { class: className = undefined, inset = undefined, children, ...rest } = $props();
+	let { ref = $bindable(null), inset, children, class: className, ...restProps } = $props();
 </script>
 
-<MenubarPrimitive.Label
-	class={cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', className)}
-	{...rest}
+<div
+	bind:this={ref}
+	data-slot="menubar-label"
+	data-inset={inset}
+	class={cn('px-2 py-1.5 text-sm font-medium data-[inset]:pl-8', className)}
+	{...restProps}
 >
 	{@render children?.()}
-</MenubarPrimitive.Label>
+</div>

@@ -1,3 +1,5 @@
+import devtoolsJson from 'vite-plugin-devtools-json';
+import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, loadEnv } from 'vite';
 
@@ -6,7 +8,7 @@ export default defineConfig(({ mode }) => {
 	const { VITE_JSCODE } = env;
 
 	return {
-		plugins: [sveltekit()],
+		plugins: [tailwindcss(), sveltekit(), devtoolsJson()],
 		server: {
 			proxy: {
 				'/_AMapService/': {

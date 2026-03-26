@@ -1,7 +1,7 @@
 <script>
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import LifeBuoy from 'lucide-svelte/icons/life-buoy';
-	import Send from 'lucide-svelte/icons/send';
+	import LifeBuoy from '@lucide/svelte/icons/life-buoy';
+	import Send from '@lucide/svelte/icons/send';
 
 	let { ref = $bindable(null), ...restProps } = $props();
 </script>

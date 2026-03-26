@@ -1,11 +1,11 @@
 <script>
 	import { cn } from '$lib/utils.js';
-
 	let { ref = $bindable(null), class: className, ...restProps } = $props();
 </script>
 
 <div
 	bind:this={ref}
-	class={cn('bg-muted animate-pulse rounded-md', className)}
+	data-slot="skeleton"
+	class={cn('animate-pulse rounded-md bg-accent', className)}
 	{...restProps}
 ></div>

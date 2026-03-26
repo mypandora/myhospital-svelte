@@ -1,12 +1,13 @@
 <script>
-	import { Menubar as MenubarPrimitive } from 'bits-ui';
 	import { cn } from '$lib/utils.js';
-
-	let { ref = $bindable(null), class: className, inset = undefined, ...restProps } = $props();
+	import { Menubar as MenubarPrimitive } from 'bits-ui';
+	let { ref = $bindable(null), inset, class: className, ...restProps } = $props();
 </script>
 
 <MenubarPrimitive.GroupHeading
 	bind:ref
-	class={cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', className)}
+	data-slot="menubar-group-heading"
+	data-inset={inset}
+	class={cn('px-2 py-1.5 text-sm font-medium data-[inset]:pl-8', className)}
 	{...restProps}
 />

@@ -69,7 +69,7 @@ export class RenderSnippetConfig {
  * ```
  * @see {@link https://tanstack.com/table/latest/docs/guide/column-defs}
  */
-export function renderComponent(component, props) {
+export function renderComponent(component, props = {}) {
 	return new RenderComponentConfig(component, props);
 }
 
@@ -97,6 +97,6 @@ export function renderComponent(component, props) {
  * ```
  * @see {@link https://tanstack.com/table/latest/docs/guide/column-defs}
  */
-export function renderSnippet(snippet, params) {
+export function renderSnippet(snippet, params = {}) {
 	return new RenderSnippetConfig(snippet, params);
 }

@@ -1,14 +1,13 @@
 <script>
 	import { cn } from '$lib/utils.js';
 
-	let { ref = $bindable(null), class: className, level = 3, children, ...restProps } = $props();
+	let { ref = $bindable(null), class: className, children, ...restProps } = $props();
 </script>
 
 <div
-	role="heading"
-	aria-level={level}
 	bind:this={ref}
-	class={cn('text-2xl leading-none font-semibold tracking-tight', className)}
+	data-slot="card-title"
+	class={cn('leading-none font-semibold', className)}
 	{...restProps}
 >
 	{@render children?.()}

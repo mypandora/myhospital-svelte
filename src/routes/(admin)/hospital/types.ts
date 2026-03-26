@@ -3,6 +3,7 @@
  */
 export interface Hospital {
 	id: number;
+	city: string;
 	name: string;
 	code: string;
 	district: string;

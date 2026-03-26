@@ -1,10 +1,6 @@
 <script>
-	import { goto, invalidateAll } from '$app/navigation';
-	import {
-		getCoreRowModel,
-		getPaginationRowModel,
-		getFilteredRowModel
-	} from '@tanstack/table-core';
+	import { goto, invalidate, invalidateAll } from '$app/navigation';
+	import { getCoreRowModel } from '@tanstack/table-core';
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -12,15 +8,73 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Pagination from '$lib/components/ui/pagination/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
-	import { ChevronLeft, ChevronRight } from 'lucide-svelte';
+	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
+
+	// 常量
+	const HOSPITAL_TYPES = [
+		'整形外科医院',
+		'急救站',
+		'眼科医院',
+		'其他民族医院',
+		'按摩医院',
+		'中心卫生院',
+		'综合医院',
+		'-',
+		'妇产（科）医院',
+		'护理院',
+		'口腔医院',
+		'综合门诊部',
+		'藏医院',
+		'口腔病防治所（站、中心）',
+		'骨伤医院',
+		'耳鼻喉科医院',
+		'中医诊所',
+		'村卫生室',
+		'精神病医院',
+		'传染病医院',
+		'妇幼保健院',
+		'社区卫生服务中心',
+		'乡卫生院',
+		'其他中医专科医院',
+		'中医（综合）门诊部',
+		'儿童医院',
+		'心血管病医院',
+		'肿瘤医院',
+		'中医专科医院',
+		'结核病医院',
+		'中西医结合医院',
+		'专科门诊部',
+		'口腔诊所',
+		'社区卫生服务站',
+		'职业病防治院',
+		'中医（综合）医院',
+		'口腔门诊部',
+		'卫生所（室）',
+		'其他专科疾病防治所（站、中心）',
+		'中医门诊部',
+		'血液病医院',
+		'医务室',
+		'其他',
+		'普通诊所',
+		'康复医院',
+		'肛肠医院',
+		'针炙医院',
+		'皮肤病医院',
+		'其他专科医院',
+		'结核病防治所（站、中心）',
+		'骨科医院',
+		'其他专科疾病防治院',
+		'胸科医院',
+		'中西医结合门诊部',
+		'急救中心'
+	];
+	const HOSPITAL_LEVELS = ['未评级', '一级', '二级', '三级'];
 
 	/** @type {{data?: Array<import('./types').Hospital>, columns: import('@tanstack/table-core').ColumnDef<import('./types').Hospital>[], total?: number, pageIndex?: number, pageSize?: number, type?: string, lvl?: string}} */
 	let { data, columns, total = 0, pageIndex = 1, pageSize = 10, type = '', lvl = '' } = $props();
 
-	/** @type {import('@tanstack/table-core').PaginationState} */
-	let pagination = $state({ pageIndex: pageIndex - 1, pageSize });
-	/** @type {import('@tanstack/table-core').ColumnFiltersState} */
-	let columnFilters = $state([]);
+	/** @type {import('@tanstack/table-core').SortingState} */
+	let sorting = $state([]);
 	/** @type {import('@tanstack/table-core').VisibilityState} */
 	let columnVisibility = $state({});
 	/** @type {import('@tanstack/table-core').RowSelectionState} */
@@ -30,27 +84,47 @@
 	/** @type {string} */
 	let hospitalLvl = $state(lvl);
 
+	let isLoading = $state(false);
+
 	const table = createSvelteTable({
 		get data() {
 			return data;
 		},
 		columns,
 		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
+		manualPagination: true, //turn off client-side pagination
+		rowCount: total, //pass in the total row count so the table knows how many pages there are (pageCount calculated internally if not provided)
+		// pageCount: total / 10, //alternatively directly pass in pageCount instead of rowCount
+		manualSorting: true, //use pre-sorted row model instead of sorted row model
+		manualFiltering: true,
 		onPaginationChange: (updater) => {
 			if (typeof updater === 'function') {
-				pagination = updater(pagination);
+				const newPagination = updater({ pageIndex, pageSize });
+				goto(
+					`?page=${newPagination.pageIndex}&limit=${newPagination.pageSize}&type=${hospitalType}&lvl=${hospitalLvl}`
+				);
 			} else {
-				pagination = updater;
+				goto(
+					`?page=${updater.pageIndex}&limit=${updater.pageSize}&type=${hospitalType}&lvl=${hospitalLvl}`
+				);
 			}
 		},
-		onColumnFiltersChange: (updater) => {
+		onSortingChange: (updater) => {
 			if (typeof updater === 'function') {
-				columnFilters = updater(columnFilters);
+				sorting = updater(sorting);
 			} else {
-				columnFilters = updater;
+				sorting = updater;
 			}
+
+			// Construct the new URL with sorting parameters
+			const sortParams = sorting
+				.map((sort) => `${sort.id},${sort.desc ? 'desc' : 'asc'}`)
+				.join('&');
+
+			const newUrl = `?page=${pageIndex}&limit=${pageSize}&sort=${sortParams}&type=${hospitalType}&lvl=${hospitalLvl}`;
+
+			// Navigate to the new URL
+			goto(newUrl);
 		},
 		onColumnVisibilityChange: (updater) => {
 			if (typeof updater === 'function') {
@@ -67,11 +141,8 @@
 			}
 		},
 		state: {
-			get pagination() {
-				return pagination;
-			},
-			get columnFilters() {
-				return columnFilters;
+			get sorting() {
+				return sorting;
 			},
 			get columnVisibility() {
 				return columnVisibility;
@@ -82,15 +153,21 @@
 		}
 	});
 
-	const handlySync = () => {
-		fetch('/hospital', {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		}).then(() => {
+	const handlySync = async () => {
+		isLoading = true;
+		try {
+			await fetch('/hospital', {
+				method: 'GET',
+				headers: {
+					'content-type': 'application/json'
+				}
+			});
 			invalidate(window.location.pathname);
-		});
+		} catch (error) {
+			console.error(error);
+		} finally {
+			isLoading = false;
+		}
 	};
 
 	const handlyCopyAll = () => {
@@ -111,27 +188,14 @@
 		// invalidate('/hospitals/pagination');
 		invalidateAll();
 	};
-
-	/** @type {(currentPage: number) => void} */
-	const handlePrev = (currentPage) => {
-		goto(`?page=${currentPage}`);
-	};
-
-	/** @type {(currentPage: number) => void} */
-	const handleNext = (currentPage) => {
-		goto(`?page=${currentPage}`);
-	};
-
-	/** @type {(currentPage: number) => void} */
-	const handleGo = (currentPage) => {
-		goto(`?page=${currentPage}`);
-	};
 </script>
 
 <div class="w-full">
 	<div class="flex items-center py-4">
 		<div class="flex gap-2">
-			<Button class="" variant="outline" onclick={handlySync}>同步医院经纬度信息</Button>
+			<Button class="" variant="outline" onclick={handlySync}
+				>{isLoading ? '同步中...' : '同步医院经纬度信息'}</Button
+			>
 			<Button class="" variant="outline" onclick={handlyCopyAll}>复制多地址医院</Button>
 			<Input
 				placeholder="Filter name..."
@@ -146,34 +210,30 @@
 			/>
 			<Select.Root type="single" bind:value={hospitalType} onValueChange={handleTypeChange}>
 				<Select.Trigger
-					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 bg-background inline-flex w-[296px] items-center border px-[11px] text-sm transition-colors select-none"
+					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 inline-flex w-[296px] items-center border bg-background px-[11px] text-sm transition-colors select-none"
 					aria-label="请选择医院类型"
 				>
 					{hospitalType}
 				</Select.Trigger>
 
 				<Select.Content>
-					<Select.Item value="对内">对内</Select.Item>
-					<Select.Item value="对外综合">对外综合</Select.Item>
-					<Select.Item value="对外中医">对外中医</Select.Item>
-					<Select.Item value="对外专科">对外专科</Select.Item>
-					<Select.Item value="社区卫生站">社区卫生站</Select.Item>
-					<Select.Item value="村卫生室">村卫生室</Select.Item>
+					{#each HOSPITAL_TYPES as type (type)}
+						<Select.Item value={type}>{type}</Select.Item>
+					{/each}
 				</Select.Content>
 			</Select.Root>
 			<Select.Root type="single" bind:value={hospitalLvl}>
 				<Select.Trigger
-					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 bg-background inline-flex w-[296px] items-center border px-[11px] text-sm transition-colors select-none"
+					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 inline-flex w-[296px] items-center border bg-background px-[11px] text-sm transition-colors select-none"
 					aria-label="请选择医院评级"
 				>
 					{hospitalLvl}
 				</Select.Trigger>
 
-				<Select.Content>
-					<Select.Item value="未评级">未评级</Select.Item>
-					<Select.Item value="一级">一级</Select.Item>
-					<Select.Item value="二级">二级</Select.Item>
-					<Select.Item value="三级">三级</Select.Item>
+				<Select.Content class="">
+					{#each HOSPITAL_LEVELS as lvl (lvl)}
+						<Select.Item value={lvl}>{lvl}</Select.Item>
+					{/each}
 				</Select.Content>
 			</Select.Root>
 		</div>
@@ -234,17 +294,17 @@
 			</Table.Body>
 		</Table.Root>
 	</div>
-	<div class="flex items-center justify-end space-x-2 py-4">
-		<div class="text-muted-foreground flex-1 text-sm">
+
+	<div class="flex items-center justify-between py-4">
+		<div class="flex-1 text-sm text-muted-foreground">
 			{table.getFilteredSelectedRowModel().rows.length} / {table.getFilteredRowModel().rows.length}
 		</div>
 
-		<Pagination.Root class="" count={total} perPage={100}>
-			{#snippet child({ pages, currentPage })}
-				{@debug pages, currentPage}
+		<Pagination.Root class="ml-auto w-auto" count={total} perPage={pageSize}>
+			{#snippet children({ pages, currentPage })}
 				<Pagination.Content class="">
 					<Pagination.Item>
-						<Pagination.PrevButton class="" onclick={() => handlePrev(currentPage)}>
+						<Pagination.PrevButton class="" onclick={() => table.previousPage()}>
 							<ChevronLeft class="size-4" />
 							<span>上一页</span>
 						</Pagination.PrevButton>
@@ -257,16 +317,16 @@
 						{:else}
 							<Pagination.Item
 								isVisible={currentPage === page.value}
-								onclick={() => handleGo(currentPage)}
+								onclick={() => table.setPageIndex(page.value)}
 							>
-								<Pagination.Link class="" {page} isActive={currentPage === page.value}
-									>{page.value}</Pagination.Link
-								>
+								<Pagination.Link class="" {page} isActive={currentPage === page.value}>
+									{page.value}
+								</Pagination.Link>
 							</Pagination.Item>
 						{/if}
 					{/each}
 					<Pagination.Item>
-						<Pagination.NextButton class="" onclick={() => handleNext(currentPage)}>
+						<Pagination.NextButton class="" onclick={() => table.nextPage()}>
 							<span>下一页</span>
 							<ChevronRight class="size-4" />
 						</Pagination.NextButton>

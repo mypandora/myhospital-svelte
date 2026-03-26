@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -7,7 +7,7 @@
 
 	let props = $props();
 
-	const user = $page.data?.user;
+	const user = page.data?.user;
 </script>
 
 <div {...props}>

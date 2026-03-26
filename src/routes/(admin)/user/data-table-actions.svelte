@@ -1,5 +1,5 @@
 <script>
-	import { Pencil, Trash2, Ellipsis } from 'lucide-svelte';
+	import { Pencil, Trash2, Ellipsis } from '@lucide/svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Button } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
