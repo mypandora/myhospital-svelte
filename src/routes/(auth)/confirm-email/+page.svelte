@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from 'svelte';
-	import * as api from '$lib/api.js';
 
 	/** @type {string} */
 	let hash;
@@ -9,7 +8,10 @@
 
 	async function confirmEmail() {
 		try {
-			const response = await api.post('/auth/email/confirm', { hash });
+			const response = await fetch('/confirm-email', {
+				method: 'POST',
+				body: JSON.stringify({ hash })
+			});
 			if (response.success) {
 				confirmationMessage = '邮箱已确认！';
 			} else {
