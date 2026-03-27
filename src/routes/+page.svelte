@@ -1,4 +1,5 @@
 <script>
+	import { PUBLIC_AMAP_SERVICE_HOST, PUBLIC_AMAP_KEY } from '$env/static/public';
 	import { onMount, onDestroy } from 'svelte';
 	import { mode } from 'mode-watcher';
 	import '@amap/amap-jsapi-types';
@@ -16,8 +17,8 @@
 	/** @type {HTMLElement | undefined}*/
 	let popupDetail = $state();
 
-	/**	@type {AMap.Map} */
-	let map;
+	/**	@type {AMap.Map | null} */
+	let map = null;
 	/** @type {AMap.InfoWindow}*/
 	let infoWindow;
 	/** @type {AMap.ContextMenu} */
@@ -41,17 +42,16 @@
 	 */
 	async function initMap() {
 		try {
-			// 引入高德 jsapi-loader
-			AMapLoader = await import('@amap/amap-jsapi-loader');
-
-			// 配置高德密钥
+			// // 配置高德密钥
 			window._AMapSecurityConfig = {
-				serviceHost: import.meta.env.VITE_AMAP_SERVICE_HOST
+				serviceHost: PUBLIC_AMAP_SERVICE_HOST
 			};
 
+			// 引入高德 jsapi-loader
+			AMapLoader = await import('@amap/amap-jsapi-loader');
 			// 加载高德地图相关脚本
 			const AMap = await AMapLoader.load({
-				key: import.meta.env.VITE_KEY,
+				key: PUBLIC_AMAP_KEY,
 				version: '2.0',
 				plugins: ['AMap.Scale', 'AMap.CitySearch', 'AMap.Circle', 'AMap.CircleEditor']
 			});
@@ -364,11 +364,12 @@
 
 	onDestroy(() => {
 		//解绑地图的点击事件
-		handleMapClickHandler && map.off('click', handleMapClickHandler);
-		handleMapMouseMoveHandler && map.off('mousemove', handleMapMouseMoveHandler);
-		handleMapRightClickHandler && map.off('rightclick', handleMapRightClickHandler);
+		handleMapClickHandler && map?.off('click', handleMapClickHandler);
+		handleMapMouseMoveHandler && map?.off('mousemove', handleMapMouseMoveHandler);
+		handleMapRightClickHandler && map?.off('rightclick', handleMapRightClickHandler);
 		//销毁地图，并清空地图容器
 		map?.destroy();
+		map = null;
 	});
 </script>
 
@@ -376,7 +377,7 @@
 	<title>首页</title>
 </svelte:head>
 
-<div id="map" class="relative flex h-dvh min-h-screen flex-col"></div>
+<div id="map" class="relative flex h-dvh flex-col"></div>
 
 <!-- 某个医院的详情弹框 -->
 <HospitalDetail {hospital} bind:domRef={popupDetail} />

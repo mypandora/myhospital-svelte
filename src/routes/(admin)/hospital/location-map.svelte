@@ -1,4 +1,5 @@
 <script>
+	import { PUBLIC_AMAP_SERVICE_HOST, PUBLIC_AMAP_KEY } from '$env/static/public';
 	import { invalidate } from '$app/navigation';
 	import { tick } from 'svelte';
 	import { mode } from 'mode-watcher';
@@ -38,7 +39,7 @@
 		AMapLoader = await import('@amap/amap-jsapi-loader');
 
 		window._AMapSecurityConfig = {
-			serviceHost: 'http://localhost:3000/_AMapService'
+			serviceHost: PUBLIC_AMAP_SERVICE_HOST
 		};
 
 		try {
@@ -52,7 +53,7 @@
 
 	async function loadAMap() {
 		return await AMapLoader.load({
-			key: import.meta.env.VITE_KEY,
+			key: PUBLIC_AMAP_KEY,
 			version: '2.0',
 			plugins: ['AMap.Scale']
 		});

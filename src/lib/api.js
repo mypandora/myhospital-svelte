@@ -1,6 +1,5 @@
+import { BASE_URL } from '$env/static/private';
 import { error } from '@sveltejs/kit';
-
-const baseURL = import.meta.env.VITE_BASE_URL;
 
 /**
  * @typedef {object} RequestHeaders
@@ -49,7 +48,7 @@ async function send({ method, url, data, headers = {}, cookies }) {
 	}
 
 	// 修复双斜杠问题
-	const cleanBaseURL = baseURL.replace(/\/$/, '');
+	const cleanBaseURL = BASE_URL.replace(/\/$/, '');
 	const cleanUrl = url.replace(/^\//, '');
 	const res = await fetch(`${cleanBaseURL}/${cleanUrl}`, opts);
 
@@ -137,7 +136,7 @@ async function refreshAccessToken(refreshToken) {
 
 	try {
 		// 修复双斜杠问题
-		const cleanBaseURL = baseURL.replace(/\/$/, '');
+		const cleanBaseURL = BASE_URL.replace(/\/$/, '');
 		const res = await fetch(`${cleanBaseURL}/auth/refresh`, {
 			method: 'POST',
 			headers: {
