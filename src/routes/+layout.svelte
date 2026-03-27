@@ -3,6 +3,7 @@
 	import { navigating } from '$app/state';
 	import PreloadingIndicator from '$lib/components/PreloadingIndicator.svelte';
 	import './layout.css';
+	import './style.css';
 	import favicon from '$lib/assets/favicon.svg';
 
 	/** @type {{children?: import('svelte').Snippet}} */

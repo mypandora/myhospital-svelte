@@ -1,4 +1,6 @@
 <script>
+	import { openHospitalPage } from '$lib/utils';
+
 	/** @type {{ hospitalList: import('./types').Hospital[] }} */
 	let { hospitalList } = $props();
 
@@ -8,49 +10,21 @@
 	let selectLvl = $state('');
 
 	let filteredHospitalList = $derived(
-		hospitalList.filter(
-			/** @param {import('./types').Hospital} hospital */ (hospital) => {
-				if (selectType === '' && selectLvl === '') {
-					return true;
-				}
-				if (selectType !== '' && selectLvl !== '') {
-					return hospital.type === selectType && hospital.lvl === selectLvl;
-				}
-				if (selectType === '') {
-					return hospital.lvl === selectLvl;
-				}
-				if (selectLvl === '') {
-					return hospital.type === selectType;
-				}
+		hospitalList.filter((hospital) => {
+			if (selectType === '' && selectLvl === '') {
+				return true;
 			}
-		)
+			if (selectType !== '' && selectLvl !== '') {
+				return hospital.type === selectType && hospital.lvl === selectLvl;
+			}
+			if (selectType === '') {
+				return hospital.lvl === selectLvl;
+			}
+			if (selectLvl === '') {
+				return hospital.type === selectType;
+			}
+		})
 	);
-
-	/**
-	 * 从医院名称跳转到官网详情页面
-	 * @param {string} name
-	 */
-	function handleDetail(name) {
-		const tempForm = document.createElement('form');
-		tempForm.id = 'tempForm1';
-		tempForm.method = 'post';
-		tempForm.action = 'https://fw.ybj.beijing.gov.cn/ddyy/ddyy/list';
-		tempForm.target = 'ddyy1form';
-
-		const hideInput = document.createElement('input');
-		hideInput.type = 'hidden';
-		hideInput.name = 'search_LIKE_yymc';
-		hideInput.value = name;
-
-		tempForm.appendChild(hideInput);
-		tempForm.addEventListener('submit', () => {
-			window.open('https://fw.ybj.beijing.gov.cn/ddyy/ddyy/list', 'ddyy1form');
-		});
-
-		document.body.appendChild(tempForm);
-		tempForm.submit();
-		document.body.removeChild(tempForm);
-	}
 </script>
 
 <div class="absolute top-4 bottom-4 left-4 w-90 space-y-2 bg-white p-2 shadow">
@@ -83,7 +57,7 @@
 		<ul class="space-y-4 text-xs text-gray-500 dark:text-gray-400">
 			{#each filteredHospitalList as hospital}
 				<li class="flex border-b border-gray-200 pb-2 dark:border-gray-700">
-					<button class="mr-2 flex-1 text-gray-900" onclick={() => handleDetail(hospital?.name)}
+					<button class="mr-2 flex-1 text-gray-900" onclick={() => openHospitalPage(hospital?.name)}
 						>{hospital?.name}</button
 					>
 					<span class="w-16">{hospital?.code}</span>
