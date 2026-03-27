@@ -2,32 +2,31 @@
 
 用于满足一定专门功能的工具类型
 
-
 ## RangingTool
 
 构造一个距离量测插件对象。参数map为地图实例。 opts属性参考RangingToolOptions列表中的说明
 
 ### Parameters
 
--   `map` **Map** 要添加到的地图实例
--   `opts` **RangingToolOptions** 鼠标工具配置参数
-    -   `opts.startMarkerOptions` **Object** 设置量测起始点标记属性对象，包括点标记样式、大小等，参考 MarkerOptions
-    -   `opts.midMarkerOptions` **Object** 设置量测中间点标记属性对象，包括点标记样式、大小等，参考 MarkerOptions
-    -   `opts.endMarkerOptions` **Object** 设置量测结束点标记属性对象，包括点标记样式、大小等，参考 MarkerOptions
-    -   `opts.lineOptions` **Object** 设置距离量测线的属性对象，包括线样式、颜色等，参考 PolylineOptions
-    -   `opts.tmpLineOptions` **Object** 设置距离量测过程中临时量测线的属性对象，包括线样式、颜色，参考 PolylineOptions
-    -   `opts.startLabelText` **String** 设置量测起始点标签的文字内容，默认为“起点”
-    -   `opts.midLabelText` **String** 设置量测中间点处标签的文字内容，默认为当前量测结果值
-    -   `opts.endLabelText` **String** 设置量测结束点处标签的文字内容，默认为当前量测结果值
-    -   `opts.startLabelOffset` **Pixel** 设置量测起始点标签的偏移量。默认值：Pixel(-6, 6)
-    -   `opts.midLabelOffset` **Pixel** 设置量测中间点标签的偏移量。默认值：Pixel(-6, 6)
-    -   `opts.endLabelOffset` **Pixel** 设置量测结束点标签的偏移量。默认值：Pixel(-6, 6)
+- `map` **Map** 要添加到的地图实例
+- `opts` **RangingToolOptions** 鼠标工具配置参数
+  - `opts.startMarkerOptions` **Object** 设置量测起始点标记属性对象，包括点标记样式、大小等，参考 MarkerOptions
+  - `opts.midMarkerOptions` **Object** 设置量测中间点标记属性对象，包括点标记样式、大小等，参考 MarkerOptions
+  - `opts.endMarkerOptions` **Object** 设置量测结束点标记属性对象，包括点标记样式、大小等，参考 MarkerOptions
+  - `opts.lineOptions` **Object** 设置距离量测线的属性对象，包括线样式、颜色等，参考 PolylineOptions
+  - `opts.tmpLineOptions` **Object** 设置距离量测过程中临时量测线的属性对象，包括线样式、颜色，参考 PolylineOptions
+  - `opts.startLabelText` **String** 设置量测起始点标签的文字内容，默认为“起点”
+  - `opts.midLabelText` **String** 设置量测中间点处标签的文字内容，默认为当前量测结果值
+  - `opts.endLabelText` **String** 设置量测结束点处标签的文字内容，默认为当前量测结果值
+  - `opts.startLabelOffset` **Pixel** 设置量测起始点标签的偏移量。默认值：Pixel(-6, 6)
+  - `opts.midLabelOffset` **Pixel** 设置量测中间点标签的偏移量。默认值：Pixel(-6, 6)
+  - `opts.endLabelOffset` **Pixel** 设置量测结束点标签的偏移量。默认值：Pixel(-6, 6)
 
 ### Examples
 
 ```javascript
-map.plugin(["AMap.MouseTool"],function(){
-   var ruler = new AMap.RangingTool(map);
+map.plugin(['AMap.MouseTool'], function () {
+	var ruler = new AMap.RangingTool(map);
 });
 ```
 
@@ -41,7 +40,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `removeOverlays` **Boolean** 是否删除测距过程产生的覆盖物
+- `removeOverlays` **Boolean** 是否删除测距过程产生的覆盖物
 
 ## MouseTool
 
@@ -49,15 +48,15 @@ map.plugin(["AMap.MouseTool"],function(){
 
 ### Parameters
 
--   `map` **Map** 鼠标工具添加到的地图实例
+- `map` **Map** 鼠标工具添加到的地图实例
 
 ### Examples
 
 ```javascript
-map.plugin(["AMap.MouseTool"],function(){
-   var mousetool = new AMap.MouseTool(map);
-   // 使用鼠标工具，在地图上画标记点
-   mousetool.marker();
+map.plugin(['AMap.MouseTool'], function () {
+	var mousetool = new AMap.MouseTool(map);
+	// 使用鼠标工具，在地图上画标记点
+	mousetool.marker();
 });
 ```
 
@@ -67,7 +66,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **MarkerOptions** 参考MarkerOptions设置
+- `opts` **MarkerOptions** 参考MarkerOptions设置
 
 ### circle
 
@@ -75,7 +74,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **CircleOptions** 参考CircleOptions设置
+- `opts` **CircleOptions** 参考CircleOptions设置
 
 ### rectangle
 
@@ -83,7 +82,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **PolygonOptions** 矩形样式参考PolygonOptions设置
+- `opts` **PolygonOptions** 矩形样式参考PolygonOptions设置
 
 ### polyline
 
@@ -91,7 +90,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **PolylineOptions** 参考PolylineOptions设置
+- `opts` **PolylineOptions** 参考PolylineOptions设置
 
 ### polygon
 
@@ -99,7 +98,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **PolygonOptions** 参考PolygonOptions设置
+- `opts` **PolygonOptions** 参考PolygonOptions设置
 
 ### measureArea
 
@@ -107,7 +106,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **PolygonOptions** 参考PolygonOptions设置
+- `opts` **PolygonOptions** 参考PolygonOptions设置
 
 ### rule
 
@@ -116,7 +115,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **PolylineOptions** 参考PolylineOptions设置
+- `opts` **PolylineOptions** 参考PolylineOptions设置
 
 ### rectZoomIn
 
@@ -124,7 +123,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **PolygonOptions** 参考PolygonOptions设置
+- `opts` **PolygonOptions** 参考PolygonOptions设置
 
 ### rectZoomOut
 
@@ -132,7 +131,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `opts` **PolygonOptions** 参考PolygonOptions设置
+- `opts` **PolygonOptions** 参考PolygonOptions设置
 
 ### close
 
@@ -140,7 +139,7 @@ map.plugin(["AMap.MouseTool"],function(){
 
 #### Parameters
 
--   `ifClear` **boolean** 是否清除地图上的覆盖物
+- `ifClear` **boolean** 是否清除地图上的覆盖物
 
 ## PolygonEditor
 
@@ -148,13 +147,13 @@ Polygon 编辑器
 
 ### Parameters
 
--   `map` **Map** AMap.Map 的实例
--   `polygon` **Polygon?** 编辑对象
--   `opts` **Object?** 设置参数
-    -   `opts.createOptions` **Object?** 新创建的对象样式
-    -   `opts.editOptions` **Object?** 编辑样式
-    -   `opts.controlPoint` **Object?** 顶点样式 CircleMarkerOptions
-    -   `opts.midControlPoint` **Object?** 中间点样式 CircleMarkerOptions
+- `map` **Map** AMap.Map 的实例
+- `polygon` **Polygon?** 编辑对象
+- `opts` **Object?** 设置参数
+  - `opts.createOptions` **Object?** 新创建的对象样式
+  - `opts.editOptions` **Object?** 编辑样式
+  - `opts.controlPoint` **Object?** 顶点样式 CircleMarkerOptions
+  - `opts.midControlPoint` **Object?** 中间点样式 CircleMarkerOptions
 
 ### open
 
@@ -166,14 +165,14 @@ Polygon 编辑器
 
 #### Parameters
 
--   `tar`  
--   `overlay` **Polygon** 
+- `tar`
+- `overlay` **Polygon**
 
 ### getTarget
 
 获取编辑对象
 
-Returns **(Polygon \| undefined)** 
+Returns **(Polygon \| undefined)**
 
 ### setAdsorbPolygons
 
@@ -181,7 +180,7 @@ Returns **(Polygon \| undefined)**
 
 #### Parameters
 
--   `list` **(Polygon \| Array&lt;Polygon>)** 
+- `list` **(Polygon \| Array&lt;Polygon>)**
 
 ### clearAdsorbPolygons
 
@@ -193,7 +192,7 @@ Returns **(Polygon \| undefined)**
 
 #### Parameters
 
--   `list` **(Polygon \| Array&lt;Polygon>)** 
+- `list` **(Polygon \| Array&lt;Polygon>)**
 
 ### removeAdsorbPolygons
 
@@ -201,7 +200,7 @@ Returns **(Polygon \| undefined)**
 
 #### Parameters
 
--   `list` **(Polygon \| Array&lt;Polygon>)** 
+- `list` **(Polygon \| Array&lt;Polygon>)**
 
 ### close
 
@@ -213,13 +212,13 @@ Returns **(Polygon \| undefined)**
 
 ### Parameters
 
--   `map` **Map** AMap.Map 的实例
--   `polygon` **Polygon?** 编辑对象
--   `opts` **Object?** 设置参数
-    -   `opts.createOptions` **Object?** 新创建的对象样式
-    -   `opts.editOptions` **Object?** 编辑样式
-    -   `opts.controlPoint` **Object?** 顶点样式 CircleMarkerOptions
-    -   `opts.midControlPoint` **Object?** 中间点样式 CircleMarkerOptions
+- `map` **Map** AMap.Map 的实例
+- `polygon` **Polygon?** 编辑对象
+- `opts` **Object?** 设置参数
+  - `opts.createOptions` **Object?** 新创建的对象样式
+  - `opts.editOptions` **Object?** 编辑样式
+  - `opts.controlPoint` **Object?** 顶点样式 CircleMarkerOptions
+  - `opts.midControlPoint` **Object?** 中间点样式 CircleMarkerOptions
 
 ### setTarget
 
@@ -227,7 +226,7 @@ Returns **(Polygon \| undefined)**
 
 #### Parameters
 
--   `overlay` **Polyline?** 
+- `overlay` **Polyline?**
 
 ### getTarget
 
@@ -249,13 +248,13 @@ Returns **(Polyline \| undefined)** 当前编辑对象
 
 ### Parameters
 
--   `map` **Map** AMap.Map 实例
--   `circle` **Circle?** 可选参数， AMap.Circle 实例
--   `opts` **Object?** 设置参数
-    -   `opts.createOptions` **Object?** 新创建的对象样式
-    -   `opts.editOptions` **Object?** 编辑样式
-    -   `opts.movePoint` **Object?** 移动点样式 MarkerOptions
-    -   `opts.resizePoint` **Object?** reaize点样式 MarkerOptions
+- `map` **Map** AMap.Map 实例
+- `circle` **Circle?** 可选参数， AMap.Circle 实例
+- `opts` **Object?** 设置参数
+  - `opts.createOptions` **Object?** 新创建的对象样式
+  - `opts.editOptions` **Object?** 编辑样式
+  - `opts.movePoint` **Object?** 移动点样式 MarkerOptions
+  - `opts.resizePoint` **Object?** reaize点样式 MarkerOptions
 
 ### setTarget
 
@@ -263,7 +262,7 @@ Returns **(Polyline \| undefined)** 当前编辑对象
 
 #### Parameters
 
--   `overlay` **Circle?** 编辑对象
+- `overlay` **Circle?** 编辑对象
 
 ### getTarget
 
@@ -285,15 +284,15 @@ Returns **(Circle \| undefined)** 当前编辑对象
 
 ### Parameters
 
--   `map` **Map** AMap.Map 实例
--   `bezier` **BezierCurve?** 曲线示例
--   `opts` **Object?** 设置参数
-    -   `opts.createOptions` **Object?** 新创建的对象样式
-    -   `opts.editOptions` **Object?** 编辑样式
-    -   `opts.controlPoint` **Object?** 顶点样式 MarkerOptions
-    -   `opts.midControlPoint` **Object?** 中间点样式 MarkerOptions
-    -   `opts.bezierControlPoint` **Object?** 贝塞尔控制点样式MarkerOptions
-    -   `opts.bezierControlLine` **Object?** 贝塞尔控制线样式PolylineOptions
+- `map` **Map** AMap.Map 实例
+- `bezier` **BezierCurve?** 曲线示例
+- `opts` **Object?** 设置参数
+  - `opts.createOptions` **Object?** 新创建的对象样式
+  - `opts.editOptions` **Object?** 编辑样式
+  - `opts.controlPoint` **Object?** 顶点样式 MarkerOptions
+  - `opts.midControlPoint` **Object?** 中间点样式 MarkerOptions
+  - `opts.bezierControlPoint` **Object?** 贝塞尔控制点样式MarkerOptions
+  - `opts.bezierControlLine` **Object?** 贝塞尔控制线样式PolylineOptions
 
 ### setTarget
 
@@ -301,7 +300,7 @@ Returns **(Circle \| undefined)** 当前编辑对象
 
 #### Parameters
 
--   `overlay` **BezierCurve?** 
+- `overlay` **BezierCurve?**
 
 ### getTarget
 
@@ -323,14 +322,14 @@ Returns **(BezierCurve \| undefined)** [overlay] 当前编辑对象
 
 ### Parameters
 
--   `map` **Map** AMap.Map 的实例
--   `ellipse` **Ellipse?** AMap.Ellipse 的实例
--   `opts` **Object?** 设置参数
-    -   `opts.createOptions` **Object?** 新创建的对象样式
-    -   `opts.editOptions` **Object?** 编辑样式
-    -   `opts.movePoint` **Object?** 移动点样式 MarkerOptions
-    -   `opts.resizeXPoint` **Object?** reaizeX点样式 MarkerOptions
-    -   `opts.resizeYPoint` **Object?** reaizeY点样式 MarkerOptions
+- `map` **Map** AMap.Map 的实例
+- `ellipse` **Ellipse?** AMap.Ellipse 的实例
+- `opts` **Object?** 设置参数
+  - `opts.createOptions` **Object?** 新创建的对象样式
+  - `opts.editOptions` **Object?** 编辑样式
+  - `opts.movePoint` **Object?** 移动点样式 MarkerOptions
+  - `opts.resizeXPoint` **Object?** reaizeX点样式 MarkerOptions
+  - `opts.resizeYPoint` **Object?** reaizeY点样式 MarkerOptions
 
 ### setTarget
 
@@ -338,7 +337,7 @@ Returns **(BezierCurve \| undefined)** [overlay] 当前编辑对象
 
 #### Parameters
 
--   `overlay` **Ellipse?** 编辑对象
+- `overlay` **Ellipse?** 编辑对象
 
 ### getTarget
 
@@ -360,13 +359,13 @@ Returns **(Ellipse \| undefined)** 当前编辑对象
 
 ### Parameters
 
--   `map` **Map** AMap.Map 的实例
--   `rect` **Rectangle?** AMap.Rectangle 的实例
--   `opts` **Object?** 设置参数
-    -   `opts.createOptions` **Object?** 新创建的对象样式
-    -   `opts.editOptions` **Object?** 编辑样式
-    -   `opts.southWestPoint` **Object?** 西南点样式 MarkerOptions
-    -   `opts.northEastPoint` **Object?** 东北点样式 MarkerOptions
+- `map` **Map** AMap.Map 的实例
+- `rect` **Rectangle?** AMap.Rectangle 的实例
+- `opts` **Object?** 设置参数
+  - `opts.createOptions` **Object?** 新创建的对象样式
+  - `opts.editOptions` **Object?** 编辑样式
+  - `opts.southWestPoint` **Object?** 西南点样式 MarkerOptions
+  - `opts.northEastPoint` **Object?** 东北点样式 MarkerOptions
 
 ### setTarget
 
@@ -374,7 +373,7 @@ Returns **(Ellipse \| undefined)** 当前编辑对象
 
 #### Parameters
 
--   `overlay` **Rectangle?** 编辑对象
+- `overlay` **Rectangle?** 编辑对象
 
 ### getTarget
 

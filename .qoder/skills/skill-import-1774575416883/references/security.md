@@ -18,7 +18,7 @@
 
 ```javascript
 window._AMapSecurityConfig = {
-  securityJsCode: '您的安全密钥', // 必填，从高德控制台申请
+	securityJsCode: '您的安全密钥' // 必填，从高德控制台申请
 };
 ```
 
@@ -27,12 +27,13 @@ window._AMapSecurityConfig = {
 在生产环境中，为了避免安全密钥泄露，强烈建议使用代理服务器转发请求。通过配置 `serviceHost`，将地图 API 请求转发到您的后端服务，再由后端服务附带安全密钥请求高德接口。
 
 #### 1. 前端配置
+
 设置 `serviceHost` 指向您的代理服务地址。
 
 ```javascript
 window._AMapSecurityConfig = {
-  serviceHost: 'https://您的代理服务器域名/_AMapService', 
-  // 例如：'https://api.example.com/_AMapService'
+	serviceHost: 'https://您的代理服务器域名/_AMapService'
+	// 例如：'https://api.example.com/_AMapService'
 };
 ```
 
@@ -53,6 +54,7 @@ server {
 ```
 
 **配置说明：**
+
 - 前端请求 `https://api.example.com/_AMapService/v3/weather/weatherInfo?city=110101`
 - Nginx 转发为 `https://restapi.amap.com/v3/weather/weatherInfo?city=110101&jscode=您的安全密钥`
 
@@ -65,22 +67,25 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
-app.use('/_AMapService', createProxyMiddleware({
-  target: 'https://restapi.amap.com',
-  changeOrigin: true,
-  pathRewrite: { '^/_AMapService': '' }, // 去除请求路径中的 /_AMapService 前缀
-  onProxyReq: (proxyReq, req, res) => {
-    // 拦截请求，追加 jscode 参数
-    const url = new URL(req.url, 'https://restapi.amap.com');
-    url.searchParams.append('jscode', '您的安全密钥');
-    
-    // 修改转发请求的路径
-    proxyReq.path = url.pathname + url.search;
-  }
-}));
+app.use(
+	'/_AMapService',
+	createProxyMiddleware({
+		target: 'https://restapi.amap.com',
+		changeOrigin: true,
+		pathRewrite: { '^/_AMapService': '' }, // 去除请求路径中的 /_AMapService 前缀
+		onProxyReq: (proxyReq, req, res) => {
+			// 拦截请求，追加 jscode 参数
+			const url = new URL(req.url, 'https://restapi.amap.com');
+			url.searchParams.append('jscode', '您的安全密钥');
+
+			// 修改转发请求的路径
+			proxyReq.path = url.pathname + url.search;
+		}
+	})
+);
 
 app.listen(3000, () => {
-  console.log('Proxy server is running on http://localhost:3000');
+	console.log('Proxy server is running on http://localhost:3000');
 });
 ```
 
@@ -118,7 +123,7 @@ public class AMapProxyController {
         // 3. 发起转发请求
         String finalUrl = amapUrl + "?" + queryString;
         RestTemplate restTemplate = new RestTemplate();
-        
+
         // 注意：此处直接返回字符串，实际生产中可能需要处理 Headers 和状态码的透传
         return restTemplate.getForEntity(finalUrl, String.class);
     }

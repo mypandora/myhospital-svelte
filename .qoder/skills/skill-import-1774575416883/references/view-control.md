@@ -16,9 +16,9 @@
 ### 1. 缩放 (Zoom)
 
 ```javascript
-map.setZoom(15);           // 设置特定级别
-map.zoomIn();              // 放大一级
-map.zoomOut();             // 缩小一级
+map.setZoom(15); // 设置特定级别
+map.zoomIn(); // 放大一级
+map.zoomOut(); // 缩小一级
 const zoom = map.getZoom(); // 获取当前级别
 ```
 
@@ -26,20 +26,20 @@ const zoom = map.getZoom(); // 获取当前级别
 
 ```javascript
 // 瞬间移动到指定位置
-map.setCenter([116.40, 39.90]);
+map.setCenter([116.4, 39.9]);
 
 // 平滑移动到指定位置 (带动画)
-map.panTo([116.40, 39.90]);
+map.panTo([116.4, 39.9]);
 
 // 同时设置缩放和中心点
-map.setZoomAndCenter(14, [116.40, 39.90]);
+map.setZoomAndCenter(14, [116.4, 39.9]);
 ```
 
 ### 3. 3D 控制 (Pitch/Rotation)
 
 ```javascript
-map.setPitch(45);      // 设置俯仰角
-map.setRotation(90);   // 设置旋转角 (正北为0，顺时针)
+map.setPitch(45); // 设置俯仰角
+map.setRotation(90); // 设置旋转角 (正北为0，顺时针)
 ```
 
 ### 4. 限制显示范围 (Bounds)
@@ -48,8 +48,8 @@ map.setRotation(90);   // 设置旋转角 (正北为0，顺时针)
 
 ```javascript
 const bounds = new AMap.Bounds(
-    [116.0, 39.0], // 西南角
-    [117.0, 40.0]  // 东北角
+	[116.0, 39.0], // 西南角
+	[117.0, 40.0] // 东北角
 );
 map.setLimitBounds(bounds);
 
@@ -64,12 +64,14 @@ map.clearLimitBounds();
 ```javascript
 // 自动适配视口
 map.setFitView(
-    [marker1, polygon1], // 覆盖物数组，为空则包含所有
-    false,               // 是否立即过渡 (false 为动画)
-    [60, 60, 60, 60]     // 上下左右的 padding
+	[marker1, polygon1], // 覆盖物数组，为空则包含所有
+	false, // 是否立即过渡 (false 为动画)
+	[60, 60, 60, 60] // 上下左右的 padding
 );
 ```
+
 ## 注意事项
+
 - 容器高度：确保地图容器 div 在 CSS 中有明确的宽度和高度，否则地图无法显示。
 - 坐标系：高德地图使用 GCJ-02 坐标系（火星坐标系）。
 - 插件加载：可以在 AMapLoader.load 时一次性引入，也可以在使用时通过 AMap.plugin(['AMap.XX'], callback) 动态引入。
@@ -78,6 +80,7 @@ map.setFitView(
 - references/security.md
 
 ### 说明：
+
 1. **安全配置模块**：在 v2.0 中，这是最常见的报错来源。我在 `0. 安全配置` 中特别强调了 `window._AMapSecurityConfig`。
 2. **Loader 模式**：官方现在推荐使用异步 Loader 模式，示例代码直接给出了 `AMapLoader` 的写法。
 3. **高性能组件**：针对 v2.0 增加了 `LabelMarker` 的引用，这是 WebGL 版本相比 v1.4 的核心优势。

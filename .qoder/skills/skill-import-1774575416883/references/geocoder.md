@@ -8,11 +8,11 @@
 
 ```javascript
 AMapLoader.load({
-    key: '您的Key',
-    version: '2.0',
-    plugins: ['AMap.Geocoder'] // 预加载插件
+	key: '您的Key',
+	version: '2.0',
+	plugins: ['AMap.Geocoder'] // 预加载插件
 }).then((AMap) => {
-    // ...
+	// ...
 });
 ```
 
@@ -22,25 +22,25 @@ AMapLoader.load({
 
 ```javascript
 const geocoder = new AMap.Geocoder({
-    city: '010', // 城市，默认全国
+	city: '010' // 城市，默认全国
 });
 
-geocoder.getLocation('北京市朝阳区阜通东大街6号', function(status, result) {
-    if (status === 'complete' && result.info === 'OK') {
-        // result.geocodes 是一个数组
-        const { location, formattedAddress } = result.geocodes[0];
-        console.log('坐标：', location.lng, location.lat);
-        console.log('规范地址：', formattedAddress);
-        
-        // 在地图上标记
-        map.setCenter(location);
-        new AMap.Marker({
-            map: map,
-            position: location
-        });
-    } else {
-        console.error('地理编码失败');
-    }
+geocoder.getLocation('北京市朝阳区阜通东大街6号', function (status, result) {
+	if (status === 'complete' && result.info === 'OK') {
+		// result.geocodes 是一个数组
+		const { location, formattedAddress } = result.geocodes[0];
+		console.log('坐标：', location.lng, location.lat);
+		console.log('规范地址：', formattedAddress);
+
+		// 在地图上标记
+		map.setCenter(location);
+		new AMap.Marker({
+			map: map,
+			position: location
+		});
+	} else {
+		console.error('地理编码失败');
+	}
 });
 ```
 
@@ -51,78 +51,79 @@ geocoder.getLocation('北京市朝阳区阜通东大街6号', function(status, r
 ```javascript
 const lnglat = [116.396574, 39.992706];
 
-geocoder.getAddress(lnglat, function(status, result) {
-    if (status === 'complete' && result.info === 'OK') {
-        // result.regeocode 包含详细地址信息
-        const address = result.regeocode.formattedAddress;
-        console.log('地址：', address);
-        
-        // 获取周边 POI、道路等详细信息
-        const { roads, pois, aois } = result.regeocode.addressComponent;
-    } else {
-        console.error('逆地理编码失败');
-    }
+geocoder.getAddress(lnglat, function (status, result) {
+	if (status === 'complete' && result.info === 'OK') {
+		// result.regeocode 包含详细地址信息
+		const address = result.regeocode.formattedAddress;
+		console.log('地址：', address);
+
+		// 获取周边 POI、道路等详细信息
+		const { roads, pois, aois } = result.regeocode.addressComponent;
+	} else {
+		console.error('逆地理编码失败');
+	}
 });
 ```
+
 ## 完整示例
 
 ### 地址搜索定位
 
 ```javascript
 const map = new AMap.Map('container', {
-  zoom: 14,
-  center: [116.397, 39.909]
+	zoom: 14,
+	center: [116.397, 39.909]
 });
 
 const geocoder = new AMap.Geocoder({
-  city: '北京',
-  extensions: 'all'
+	city: '北京',
+	extensions: 'all'
 });
 
 const input = document.getElementById('addressInput');
 const btn = document.getElementById('searchBtn');
 
-btn.onclick = function() {
-  const address = input.value.trim();
-  if (!address) return;
-  
-  geocoder.getLocation(address, function(status, result) {
-    if (status === 'complete' && result.geocodes.length > 0) {
-      const geocode = result.geocodes[0];
-      
-      // 清除之前的标记
-      map.clearMap();
-      
-      // 添加标记
-      const marker = new AMap.Marker({
-        map: map,
-        position: geocode.location
-      });
-      
-      // 信息窗体
-      const infoWindow = new AMap.InfoWindow({
-        content: `
+btn.onclick = function () {
+	const address = input.value.trim();
+	if (!address) return;
+
+	geocoder.getLocation(address, function (status, result) {
+		if (status === 'complete' && result.geocodes.length > 0) {
+			const geocode = result.geocodes[0];
+
+			// 清除之前的标记
+			map.clearMap();
+
+			// 添加标记
+			const marker = new AMap.Marker({
+				map: map,
+				position: geocode.location
+			});
+
+			// 信息窗体
+			const infoWindow = new AMap.InfoWindow({
+				content: `
           <div>
             <h4>${geocode.formattedAddress}</h4>
             <p>坐标: ${geocode.location.lng}, ${geocode.location.lat}</p>
           </div>
         `,
-        offset: new AMap.Pixel(0, -30)
-      });
-      
-      marker.on('click', function() {
-        infoWindow.open(map, marker.getPosition());
-      });
-      
-      // 移动视角
-      map.setZoomAndCenter(16, geocode.location);
-      
-      // 自动打开信息窗体
-      infoWindow.open(map, geocode.location);
-    } else {
-      alert('未找到该地址');
-    }
-  });
+				offset: new AMap.Pixel(0, -30)
+			});
+
+			marker.on('click', function () {
+				infoWindow.open(map, marker.getPosition());
+			});
+
+			// 移动视角
+			map.setZoomAndCenter(16, geocode.location);
+
+			// 自动打开信息窗体
+			infoWindow.open(map, geocode.location);
+		} else {
+			alert('未找到该地址');
+		}
+	});
 };
 ```
 
@@ -130,35 +131,35 @@ btn.onclick = function() {
 
 ```javascript
 const map = new AMap.Map('container', {
-  zoom: 14,
-  center: [116.397, 39.909]
+	zoom: 14,
+	center: [116.397, 39.909]
 });
 
 const geocoder = new AMap.Geocoder({
-  extensions: 'all'
+	extensions: 'all'
 });
 
 const infoWindow = new AMap.InfoWindow({
-  offset: new AMap.Pixel(0, -15)
+	offset: new AMap.Pixel(0, -15)
 });
 
-map.on('click', function(e) {
-  const lnglat = [e.lnglat.getLng(), e.lnglat.getLat()];
-  
-  geocoder.getAddress(lnglat, function(status, result) {
-    if (status === 'complete') {
-      const address = result.regeocode.formattedAddress;
-      
-      infoWindow.setContent(`
+map.on('click', function (e) {
+	const lnglat = [e.lnglat.getLng(), e.lnglat.getLat()];
+
+	geocoder.getAddress(lnglat, function (status, result) {
+		if (status === 'complete') {
+			const address = result.regeocode.formattedAddress;
+
+			infoWindow.setContent(`
         <div style="padding: 10px;">
           <p><strong>地址:</strong> ${address}</p>
           <p><strong>坐标:</strong> ${lnglat[0].toFixed(6)}, ${lnglat[1].toFixed(6)}</p>
         </div>
       `);
-      
-      infoWindow.open(map, e.lnglat);
-    }
-  });
+
+			infoWindow.open(map, e.lnglat);
+		}
+	});
 });
 ```
 

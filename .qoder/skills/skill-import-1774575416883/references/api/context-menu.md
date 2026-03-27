@@ -1,8 +1,5 @@
 ## 右键菜单
 
-
-
-
 ## ContextMenu
 
 **Extends OverlayDOM**
@@ -11,9 +8,9 @@
 
 ### Parameters
 
--   `opts` **OverlayOptions** 右键菜单参数
-    -   `opts.position` **(Vector2 | LngLat)** 右键菜单显示的位置
-    -   `opts.content` **(string \| HTMLElement)** 右键菜单内容（针对自定义菜单时，添加菜单内容及功能。可以是HTML要素字符串或者HTML DOM对象。）
+- `opts` **OverlayOptions** 右键菜单参数
+  - `opts.position` **(Vector2 | LngLat)** 右键菜单显示的位置
+  - `opts.content` **(string \| HTMLElement)** 右键菜单内容（针对自定义菜单时，添加菜单内容及功能。可以是HTML要素字符串或者HTML DOM对象。）
 
 ### Examples
 
@@ -21,12 +18,16 @@
 // 创建一个右键菜单实例
 var contextMenu = new AMap.ContextMenu();
 //右键放大
-contextMenu.addItem("放大一级", function () {
-    var zoom = map.getZoom();
-    map.setZoom(zoom++);
-}, 0);
+contextMenu.addItem(
+	'放大一级',
+	function () {
+		var zoom = map.getZoom();
+		map.setZoom(zoom++);
+	},
+	0
+);
 // 在地图上指定位置打开右键菜单
-contextMenu.open(map, [116.397389,39.909466]);
+contextMenu.open(map, [116.397389, 39.909466]);
 ```
 
 ### open
@@ -35,8 +36,8 @@ contextMenu.open(map, [116.397389,39.909466]);
 
 #### Parameters
 
--   `map` **Map** 
--   `position` **Vector2** 
+- `map` **Map**
+- `position` **Vector2**
 
 ### close
 
@@ -48,9 +49,9 @@ contextMenu.open(map, [116.397389,39.909466]);
 
 #### Parameters
 
--   `text` **string** 
--   `fn` **EventListener** 
--   `num` **number** 
+- `text` **string**
+- `fn` **EventListener**
+- `num` **number**
 
 ### removeItem
 
@@ -58,5 +59,5 @@ contextMenu.open(map, [116.397389,39.909466]);
 
 #### Parameters
 
--   `text` **string** 
--   `fn` **EventListener** 
+- `text` **string**
+- `fn` **EventListener**

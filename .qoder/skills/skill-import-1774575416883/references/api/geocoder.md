@@ -2,7 +2,6 @@
 
 用于经纬度与地址之间的相互查询
 
-
 ## Geocoder
 
 **Extends AMap.Event**
@@ -12,38 +11,39 @@ AMap.Geocoder 地理编码与逆地理编码类，用于地址描述与经纬度
 
 ### Parameters
 
--   `opts` **GeocoderOptions** 
-    -   `opts.city` **string** <div>
-        <div>城市，地理编码时，设置地址描述所在城市</div>
-        <div>可选值：城市名（中文或中文全拼）、citycode、adcode</div>
-        <div>默认值：“全国”</div>
-        </div>
-    -   `opts.radius` **number** <div>
-        <div>逆地理编码时，以给定坐标为中心点，单位：米</div>
-        <div>取值范围：0 - 3000</div>
-        <div>默认值：1000</div>
-        </div>
-    -   `opts.lang` **string** <div>设置语言类型</div>
-        <div>可选值：zh_cn（中文）、en(英文)</div>
-        <div>默认值：zh_cn（中文</div>
-    -   `opts.batch` **boolean** 是否批量查询<div>batch 设置为 false 时，只返回第一条记录</div>
-    -   `opts.extensions` **string** 逆地理编码时，返回信息的详略<div>默认值：base，返回基本地址信息 </div>
-        <div>取值为：all，返回地址信息及附近poi、道路、道路交叉口等信息 </div>
+- `opts` **GeocoderOptions**
+  - `opts.city` **string** <div>
+    <div>城市，地理编码时，设置地址描述所在城市</div>
+    <div>可选值：城市名（中文或中文全拼）、citycode、adcode</div>
+    <div>默认值：“全国”</div>
+    </div>
+  - `opts.radius` **number** <div>
+    <div>逆地理编码时，以给定坐标为中心点，单位：米</div>
+    <div>取值范围：0 - 3000</div>
+    <div>默认值：1000</div>
+    </div>
+  - `opts.lang` **string** <div>设置语言类型</div>
+    <div>可选值：zh_cn（中文）、en(英文)</div>
+    <div>默认值：zh_cn（中文</div>
+  - `opts.batch` **boolean** 是否批量查询<div>batch 设置为 false 时，只返回第一条记录</div>
+  - `opts.extensions` **string** 逆地理编码时，返回信息的详略<div>默认值：base，返回基本地址信息 </div>
+    <div>取值为：all，返回地址信息及附近poi、道路、道路交叉口等信息 </div>
 
 ### Examples
 
 ```javascript
 var geocoder;
 //加载地理编码插件
-mapObj.plugin(["AMap.Geocoder"], function() { //加载地理编码插件
-   geocoder = new AMap.Geocoder({
-       radius: 1000, //以已知坐标为中心点，radius为半径，返回范围内兴趣点和道路信息
-       extensions: "all" //返回地址描述以及附近兴趣点和道路信息，默认“base”
-   });
-   //返回地理编码结果
-   geocoder.on("complete", geocoder_CallBack);
-   //逆地理编码
-   geocoder.getAddress(new AMap.LngLat(116.359119, 39.972121));
+mapObj.plugin(['AMap.Geocoder'], function () {
+	//加载地理编码插件
+	geocoder = new AMap.Geocoder({
+		radius: 1000, //以已知坐标为中心点，radius为半径，返回范围内兴趣点和道路信息
+		extensions: 'all' //返回地址描述以及附近兴趣点和道路信息，默认“base”
+	});
+	//返回地理编码结果
+	geocoder.on('complete', geocoder_CallBack);
+	//逆地理编码
+	geocoder.getAddress(new AMap.LngLat(116.359119, 39.972121));
 });
 ```
 
@@ -53,8 +53,8 @@ mapObj.plugin(["AMap.Geocoder"], function() { //加载地理编码插件
 
 #### Parameters
 
--   `keyword` **String** 关键字
--   `cbk` **GeocoderCallback** 回调函数
+- `keyword` **String** 关键字
+- `cbk` **GeocoderCallback** 回调函数
 
 ### setCity
 
@@ -62,7 +62,7 @@ mapObj.plugin(["AMap.Geocoder"], function() { //加载地理编码插件
 
 #### Parameters
 
--   `city` **String** 所在城市
+- `city` **String** 所在城市
 
 ### getAddress
 
@@ -70,8 +70,8 @@ mapObj.plugin(["AMap.Geocoder"], function() { //加载地理编码插件
 
 #### Parameters
 
--   `location` **(LngLat \| Array&lt;LngLat>)** 给定坐标
--   `cbk` **ReGeocoderCallback** 回调函数
+- `location` **(LngLat \| Array&lt;LngLat>)** 给定坐标
+- `cbk` **ReGeocoderCallback** 回调函数
 
 ## GeocoderCallback
 
@@ -81,8 +81,8 @@ Type: Function
 
 ### Parameters
 
--   `status` **string** 当status为complete时，result为GeocodeResult；当status为error时，result为错误信息info；当status为no_data时，代表检索返回0结果
--   `result` **(info | GeocodeResult)** 地理编码 [详查rest文档][106]
+- `status` **string** 当status为complete时，result为GeocodeResult；当status为error时，result为错误信息info；当status为no_data时，代表检索返回0结果
+- `result` **(info | GeocodeResult)** 地理编码 [详查rest文档][106]
 
 ## ReGeocoderCallback
 
@@ -92,8 +92,8 @@ Type: Function
 
 ### Parameters
 
--   `status` **string** 当status为complete时，result为GeocodeResult；当status为error时，result为错误信息info；当status为no_data时，代表检索返回0结果
--   `result` **(info | ReGeocodeResult)** 逆地理编码 [详查rest文档][107]
+- `status` **string** 当status为complete时，result为GeocodeResult；当status为error时，result为错误信息info；当status为no_data时，代表检索返回0结果
+- `result` **(info | ReGeocodeResult)** 逆地理编码 [详查rest文档][107]
 
 ## convertFrom
 
@@ -106,17 +106,17 @@ Type: Function
 
 ### Parameters
 
--   `lnglat` **LngLat** 需要转换的坐标或者坐标组
--   `type` **String** 坐标类型 (optional, default `'gps'`)
--   `cbk` **Function?** 转换成功后的回调函数
+- `lnglat` **LngLat** 需要转换的坐标或者坐标组
+- `type` **String** 坐标类型 (optional, default `'gps'`)
+- `cbk` **Function?** 转换成功后的回调函数
 
 ### Examples
 
 ```javascript
 var gps = [116.3, 39.9];
 AMap.convertFrom(gps, 'gps', function (status, result) {
-  if (result.info === 'ok') {
-    var lnglats = result.locations; // Array.<LngLat>
-  }
+	if (result.info === 'ok') {
+		var lnglats = result.locations; // Array.<LngLat>
+	}
 });
 ```

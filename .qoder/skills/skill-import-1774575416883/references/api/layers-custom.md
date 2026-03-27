@@ -2,45 +2,44 @@
 
 用于加载展示开发者自己拥有的数据或者图像的图层类型
 
-
 ## HeatMap
 
 热力图，基于第三方heatmap.js实现，以特殊高亮的形式显示数据密集程度。根据密集程度的不同，图上会呈现不同的颜色，以直观的形式展现数据密度。API引用了heatmap.js最新版本v2.0，v2.0基于新的渲染模型，具有更高的渲染效率和更强的性能。支持chrome、firefox、safari、ie9及以上浏览器。
 
 ### Parameters
 
--   `map` **Map** 要叠加热力图的地图对象
--   `opts` **HeatMapOptions** 热力图属性配置
-    -   `opts.radius` **number** 热力图中单个点的半径，默认：30，单位：pixel
-    -   `opts.gradient` **object** 热力图的渐变区间，热力图按照设置的颜色及间隔显示热力图，例{0.4:'rgb(0, 255, 255)',0.85:'rgb(100, 0, 255)',},其中 key 表示间隔位置，取值范围： [0,1]，value 为颜色值。默认：heatmap.js标准配色方案
-    -   `opts.opacity` **array** 热力图透明度区间数组，取值范围[0,1]，0表示完全透明，1表示不透明，默认：[0,1]
-    -   `opts.zooms` **array** 支持的缩放级别范围，取值范围[3-20]，默认：[3,20]
-    -   `opts.visible` **boolean** 是否可见
-    -   `opts.zIndex` **number** 热力图层在地图上的叠加顺序，默认 130
-    -   `opts.3d` **HeatMap3DOptions** 3D热力图属性
-        -   `opts.3d.heightScale` **number** 高度缩放因子，表示在单位高度上的缩放比例， 默认为 1
-        -   `opts.3d.heightBezier` **array** 影响高度平滑度的贝塞尔曲线因子，默认 [0.5, 0, 1, 0.5],
-        -   `opts.3d.gridSize` **number** 取样精度，越小越平滑，越大性能越高
+- `map` **Map** 要叠加热力图的地图对象
+- `opts` **HeatMapOptions** 热力图属性配置
+  - `opts.radius` **number** 热力图中单个点的半径，默认：30，单位：pixel
+  - `opts.gradient` **object** 热力图的渐变区间，热力图按照设置的颜色及间隔显示热力图，例{0.4:'rgb(0, 255, 255)',0.85:'rgb(100, 0, 255)',},其中 key 表示间隔位置，取值范围： [0,1]，value 为颜色值。默认：heatmap.js标准配色方案
+  - `opts.opacity` **array** 热力图透明度区间数组，取值范围[0,1]，0表示完全透明，1表示不透明，默认：[0,1]
+  - `opts.zooms` **array** 支持的缩放级别范围，取值范围[3-20]，默认：[3,20]
+  - `opts.visible` **boolean** 是否可见
+  - `opts.zIndex` **number** 热力图层在地图上的叠加顺序，默认 130
+  - `opts.3d` **HeatMap3DOptions** 3D热力图属性
+    - `opts.3d.heightScale` **number** 高度缩放因子，表示在单位高度上的缩放比例， 默认为 1
+    - `opts.3d.heightBezier` **array** 影响高度平滑度的贝塞尔曲线因子，默认 [0.5, 0, 1, 0.5],
+    - `opts.3d.gridSize` **number** 取样精度，越小越平滑，越大性能越高
 
 ### Examples
 
 ```javascript
 var heatmap;
 var points = [
-   {"lng":116.191031,"lat":39.988585,"count":10},
-   {"lng":116.389275,"lat":39.925818,"count":11},
-   {"lng":116.287444,"lat":39.810742,"count":12},
-   {"lng":116.481707,"lat":39.940089,"count":13},
-   {"lng":116.410588,"lat":39.880172,"count":14},
-   {"lng":116.394816,"lat":39.91181,"count":15},
-   {"lng":116.416002,"lat":39.952917,"count":16},
+	{ lng: 116.191031, lat: 39.988585, count: 10 },
+	{ lng: 116.389275, lat: 39.925818, count: 11 },
+	{ lng: 116.287444, lat: 39.810742, count: 12 },
+	{ lng: 116.481707, lat: 39.940089, count: 13 },
+	{ lng: 116.410588, lat: 39.880172, count: 14 },
+	{ lng: 116.394816, lat: 39.91181, count: 15 },
+	{ lng: 116.416002, lat: 39.952917, count: 16 }
 ];
 // 加载热力图插件
-map.plugin(["AMap.HeatMap"],function(){
-   // 在地图对象叠加热力图
-   heatmap = new AMap.Heatmap({map:map});
-   // 设置热力图数据集
-   heatmap.setDataSet({data:points,max:100});
+map.plugin(['AMap.HeatMap'], function () {
+	// 在地图对象叠加热力图
+	heatmap = new AMap.Heatmap({ map: map });
+	// 设置热力图数据集
+	heatmap.setDataSet({ data: points, max: 100 });
 });
 ```
 
@@ -48,7 +47,7 @@ map.plugin(["AMap.HeatMap"],function(){
 
 获取热力图叠加地图对象
 
-Returns **Map** 
+Returns **Map**
 
 ### setMap
 
@@ -56,13 +55,13 @@ Returns **Map**
 
 #### Parameters
 
--   `map` **Map** 地图实例
+- `map` **Map** 地图实例
 
 ### getOptions
 
 获取热力图的属性信息
 
-Returns **HeatMapOptions** 
+Returns **HeatMapOptions**
 
 ### setOptions
 
@@ -70,42 +69,42 @@ Returns **HeatMapOptions**
 
 #### Parameters
 
--   `options` **HeatMapOptions** 热力图配置
+- `options` **HeatMapOptions** 热力图配置
 
 ### getDataSet
 
 输出热力图的数据集，数据结构同setDataSet中的数据集
 
-Returns **object** 
+Returns **object**
 
 ### setDataSet
 
 设置热力图展现的数据集，dataset数据集格式为：
 {
- max: Number 权重的最大值,
- data: Array 坐标数据集
+max: Number 权重的最大值,
+data: Array 坐标数据集
 }，
 其中max不填则取数据集count最大值
 例： {
-  max: 100,
-  data: [{lng: 116.405285, lat: 39.904989, count: 65},{}, …]
-  }
+max: 100,
+data: [{lng: 116.405285, lat: 39.904989, count: 65},{}, …]
+}
 也可以通过url来加载数据，格式为
 {
-  data：jsonp格式数据的服务地址URL,
-  dataParser: 数据格式转换function //当jsonp返回结果和官方结构不一致的时候，用户可以传递一个函数用来进行数据格式转换；
+data：jsonp格式数据的服务地址URL,
+dataParser: 数据格式转换function //当jsonp返回结果和官方结构不一致的时候，用户可以传递一个函数用来进行数据格式转换；
 }
 例：
 {
-  data:'[http://abc.com/jsonp.js'][61],
-  dataParser:function(data){
-   return doSomthing(data);//返回的对象结果应该与上面例子的data字段结构相同
-  }
+data:'[http://abc.com/jsonp.js'][61],
+dataParser:function(data){
+return doSomthing(data);//返回的对象结果应该与上面例子的data字段结构相同
+}
 }
 
 #### Parameters
 
--   `dataset` **object** 数据集
+- `dataset` **object** 数据集
 
 ### addDataPoint
 
@@ -113,15 +112,15 @@ Returns **object**
 
 #### Parameters
 
--   `longitude` **string** 经度
--   `latitude` **string** 纬度
--   `count` **number** 权重
+- `longitude` **string** 经度
+- `latitude` **string** 纬度
+- `count` **number** 权重
 
 ### getzIndex
 
 获得热力图层叠加层级
 
-Returns **number** 
+Returns **number**
 
 ### setzIndex
 
@@ -129,7 +128,7 @@ Returns **number**
 
 #### Parameters
 
--   `zIndex` **number** 热力图层叠加层级
+- `zIndex` **number** 热力图层叠加层级
 
 ### show
 
@@ -149,7 +148,7 @@ Returns **number**
 
 #### Parameters
 
--   `vectors` **(VectorOverlay | Array&lt;VectorOverlay>)** 矢量覆盖物或矢量覆盖物数组
+- `vectors` **(VectorOverlay | Array&lt;VectorOverlay>)** 矢量覆盖物或矢量覆盖物数组
 
 ### remove
 
@@ -157,7 +156,7 @@ Returns **number**
 
 #### Parameters
 
--   `vectors` **(VectorOverlay | Array&lt;VectorOverlay>)** 矢量覆盖物或矢量覆盖物数组
+- `vectors` **(VectorOverlay | Array&lt;VectorOverlay>)** 矢量覆盖物或矢量覆盖物数组
 
 ### show
 
@@ -173,9 +172,9 @@ Returns **number**
 
 #### Parameters
 
--   `vector` **VectorOverlay** 
+- `vector` **VectorOverlay**
 
-Returns **boolean** 
+Returns **boolean**
 
 ### clear
 
@@ -187,7 +186,7 @@ Returns **boolean**
 
 #### Parameters
 
--   `opt` **Object** 
+- `opt` **Object**
 
 ### query
 
@@ -195,7 +194,7 @@ Returns **boolean**
 
 #### Parameters
 
--   `geometry` **LngLatLike** 
+- `geometry` **LngLatLike**
 
 Returns **(VectorOverlay | undefined)** vector 矢量覆盖物
 
@@ -211,16 +210,16 @@ Returns **(Bounds \| undefined)** 经纬度范围值
 
 ### Parameters
 
--   `opts` **Object** 
-    -   `opts.visible` **boolean** 是否显示 (optional, default `true`)
-    -   `opts.zIndex` **number** 是否显示 (optional, default `110`)
+- `opts` **Object**
+  - `opts.visible` **boolean** 是否显示 (optional, default `true`)
+  - `opts.zIndex` **number** 是否显示 (optional, default `110`)
 
 ### Examples
 
 ```javascript
 var layer = new AMap.VectorLayer();
 map.add(layer);
-var circle = new AMap.circle({center: [116.4, 39.9], radius:1000});
+var circle = new AMap.circle({ center: [116.4, 39.9], radius: 1000 });
 layer.add(circle);
 ```
 
@@ -230,7 +229,7 @@ layer.add(circle);
 
 #### Parameters
 
--   `vectors` **(VectorOverlay | Array&lt;VectorOverlay>)** 矢量覆盖物或矢量覆盖物数组
+- `vectors` **(VectorOverlay | Array&lt;VectorOverlay>)** 矢量覆盖物或矢量覆盖物数组
 
 ### remove
 
@@ -238,7 +237,7 @@ layer.add(circle);
 
 #### Parameters
 
--   `vectors` **(VectorOverlay | Array&lt;VectorOverlay>)** 矢量覆盖物或矢量覆盖物数组
+- `vectors` **(VectorOverlay | Array&lt;VectorOverlay>)** 矢量覆盖物或矢量覆盖物数组
 
 ### show
 
@@ -254,9 +253,9 @@ layer.add(circle);
 
 #### Parameters
 
--   `vector` **VectorOverlay** 
+- `vector` **VectorOverlay**
 
-Returns **boolean** 
+Returns **boolean**
 
 ### clear
 
@@ -268,7 +267,7 @@ Returns **boolean**
 
 #### Parameters
 
--   `opt` **Object** 
+- `opt` **Object**
 
 ### query
 
@@ -276,7 +275,7 @@ Returns **boolean**
 
 #### Parameters
 
--   `geometry` **LngLatLike** 
+- `geometry` **LngLatLike**
 
 Returns **(VectorOverlay | undefined)** vector 矢量覆盖物
 
@@ -292,23 +291,23 @@ Returns **(Bounds \| undefined)** 经纬度范围值
 
 ### Parameters
 
--   `opts` **LabelsLayerOptions** 标注层参数
-    -   `opts.visible` **boolean** 标注层是否可见，默认值:true
-    -   `opts.zIndex` **number** 标注层与其它图层的叠加顺序，默认值：120
-    -   `opts.opacity` **number** 标注层透明度
-    -   `opts.collision` **boolean** 标注层内的标注是否避让
-    -   `opts.allowCollision` **boolean** 标注层内的标注是否允许其它标注层对它避让
-    -   `opts.zooms` **\[number, number]** 标注层展示层级范围
+- `opts` **LabelsLayerOptions** 标注层参数
+  - `opts.visible` **boolean** 标注层是否可见，默认值:true
+  - `opts.zIndex` **number** 标注层与其它图层的叠加顺序，默认值：120
+  - `opts.opacity` **number** 标注层透明度
+  - `opts.collision` **boolean** 标注层内的标注是否避让
+  - `opts.allowCollision` **boolean** 标注层内的标注是否允许其它标注层对它避让
+  - `opts.zooms` **\[number, number]** 标注层展示层级范围
 
 ### Examples
 
 ```javascript
 // 创建一个标注层实例
 var labelsLayer = new AMap.LabelsLayer({
-     collision: true,
-     opacity: 1,
-     zIndex: 120,
-     allowCollision: true,
+	collision: true,
+	opacity: 1,
+	zIndex: 120,
+	allowCollision: true
 });
 // 将标注层添加到地图上
 map.add(labelsLayer);
@@ -318,7 +317,7 @@ map.add(labelsLayer);
 
 获取标注层是否支持内部标注避让
 
-Returns **any** 
+Returns **any**
 
 ### setCollision
 
@@ -326,13 +325,13 @@ Returns **any**
 
 #### Parameters
 
--   `collision` **boolean** 默认值: true
+- `collision` **boolean** 默认值: true
 
 ### getAllowCollision
 
 获取标注层是否允许其它层标注避让
 
-Returns **boolean** 
+Returns **boolean**
 
 ### setAllowCollision
 
@@ -340,13 +339,13 @@ Returns **boolean**
 
 #### Parameters
 
--   `allowCollision` **boolean** 
+- `allowCollision` **boolean**
 
 ### getOpacity
 
 获取标注层透明度
 
-Returns **number** 
+Returns **number**
 
 ### setOpacity
 
@@ -354,13 +353,13 @@ Returns **number**
 
 #### Parameters
 
--   `opacity` **number** 
+- `opacity` **number**
 
 ### getZooms
 
 获取标注层显示层级范围
 
-Returns **any** 
+Returns **any**
 
 ### setZooms
 
@@ -368,13 +367,13 @@ Returns **any**
 
 #### Parameters
 
--   `zooms` **\[number]** 
+- `zooms` **\[number]**
 
 ### getzIndex
 
 获取标注层叠加顺序
 
-Returns **number** 
+Returns **number**
 
 ### setzIndex
 
@@ -382,7 +381,7 @@ Returns **number**
 
 #### Parameters
 
--   `zIndex` **number** 
+- `zIndex` **number**
 
 ### add
 
@@ -390,7 +389,7 @@ Returns **number**
 
 #### Parameters
 
--   `labelMarkers` **Array&lt;LabelMarker>** 可添加单个标注或标注数组
+- `labelMarkers` **Array&lt;LabelMarker>** 可添加单个标注或标注数组
 
 ### remove
 
@@ -398,7 +397,7 @@ Returns **number**
 
 #### Parameters
 
--   `labelMarkers` **(LabelMarker \| Array&lt;LabelMarker>)** 可移除单个标注或标注数组
+- `labelMarkers` **(LabelMarker \| Array&lt;LabelMarker>)** 可移除单个标注或标注数组
 
 ### clear
 
@@ -416,7 +415,7 @@ Returns **number**
 
 获取标注层内的所有标注对象
 
-Returns **Array&lt;any>** 
+Returns **Array&lt;any>**
 
 ## CustomLayer
 
@@ -424,8 +423,8 @@ Returns **Array&lt;any>**
 
 ### Parameters
 
--   `canvas`  
--   `opts`  
+- `canvas`
+- `opts`
 
 ### getOptions
 
@@ -445,7 +444,7 @@ Returns **Number** zIndex 图层层级
 
 #### Parameters
 
--   `zIndex` **Number** 图层层级值
+- `zIndex` **Number** 图层层级值
 
 ### setzIndex
 
@@ -453,7 +452,7 @@ Returns **Number** zIndex 图层层级
 
 #### Parameters
 
--   `zIndex` **number** 图层层级
+- `zIndex` **number** 图层层级
 
 ### getOpacity
 
@@ -467,7 +466,7 @@ Returns **Number** opacity 图层透明度
 
 #### Parameters
 
--   `opacity` **Number** 图层透明度
+- `opacity` **Number** 图层透明度
 
 ### getZooms
 
@@ -481,7 +480,7 @@ Returns **\[Number, Number]** 缩放范围
 
 #### Parameters
 
--   `zooms` **\[Number, Number]** 缩放范围
+- `zooms` **\[Number, Number]** 缩放范围
 
 ### show
 
@@ -497,7 +496,7 @@ Returns **\[Number, Number]** 缩放范围
 
 #### Parameters
 
--   `地图实例对象` **Map** 
+- `地图实例对象` **Map**
 
 ## CustomLayer
 
@@ -508,26 +507,26 @@ Returns **\[Number, Number]** 缩放范围
 
 ### Parameters
 
--   `canvas` **HTMLCanvasElement** canvas 对象
--   `opts` **CustomLayerOption** 默认图层参数
-    -   `opts.render` **Function** 绘制函数，初始化完成时候，开发者需要给该图层设定render方法， </br>
-        该方法需要实现图层的绘制，API会在合适的时机自动调用该方法
-    -   `opts.zooms` **\[Number, Number]** 图层缩放等级范围，默认 [2, 20] (optional, default `[2,20]`)
-    -   `opts.opacity` **Number** 图层透明度，默认为 1 (optional, default `1`)
-    -   `opts.visible` **Boolean** 图层是否可见，默认为 true (optional, default `true`)
-    -   `opts.zIndex` **Number** 图层的层级，默认为 120 (optional, default `120`)
-    -   `opts.alwaysRender` **Boolean** 是否主动 (optional, default `false`)
+- `canvas` **HTMLCanvasElement** canvas 对象
+- `opts` **CustomLayerOption** 默认图层参数
+  - `opts.render` **Function** 绘制函数，初始化完成时候，开发者需要给该图层设定render方法， </br>
+    该方法需要实现图层的绘制，API会在合适的时机自动调用该方法
+  - `opts.zooms` **\[Number, Number]** 图层缩放等级范围，默认 [2, 20] (optional, default `[2,20]`)
+  - `opts.opacity` **Number** 图层透明度，默认为 1 (optional, default `1`)
+  - `opts.visible` **Boolean** 图层是否可见，默认为 true (optional, default `true`)
+  - `opts.zIndex` **Number** 图层的层级，默认为 120 (optional, default `120`)
+  - `opts.alwaysRender` **Boolean** 是否主动 (optional, default `false`)
 
 ### Examples
 
 ```javascript
 var cLayer = new AMap.CustomLayer(canvas, {
-     zooms: [2, 18],
-     zIndex: 120,
-     render() {
-         // 对 canvas 进行绘制
-     }
-})
+	zooms: [2, 18],
+	zIndex: 120,
+	render() {
+		// 对 canvas 进行绘制
+	}
+});
 ```
 
 ### getOptions
@@ -548,7 +547,7 @@ Returns **Number** zIndex 图层层级
 
 #### Parameters
 
--   `zIndex` **Number** 图层层级值
+- `zIndex` **Number** 图层层级值
 
 ### setzIndex
 
@@ -556,7 +555,7 @@ Returns **Number** zIndex 图层层级
 
 #### Parameters
 
--   `zIndex` **number** 图层层级
+- `zIndex` **number** 图层层级
 
 ### getOpacity
 
@@ -570,7 +569,7 @@ Returns **Number** opacity 图层透明度
 
 #### Parameters
 
--   `opacity` **Number** 图层透明度
+- `opacity` **Number** 图层透明度
 
 ### getZooms
 
@@ -584,7 +583,7 @@ Returns **\[Number, Number]** 缩放范围
 
 #### Parameters
 
--   `zooms` **\[Number, Number]** 缩放范围
+- `zooms` **\[Number, Number]** 缩放范围
 
 ### show
 
@@ -600,7 +599,7 @@ Returns **\[Number, Number]** 缩放范围
 
 #### Parameters
 
--   `地图实例对象` **Map** 
+- `地图实例对象` **Map**
 
 ## Flexible
 
@@ -611,18 +610,18 @@ Returns **\[Number, Number]** 缩放范围
 
 ### Parameters
 
--   `opts` **FlexibleLayerOptions** 
-    -   `opts.cacheSize` **Number** 缓存瓦片数量
-    -   `opts.createTile` **function (x, y, z, success, fail)** 由开发者实现，由API自动调用，xyz分别为切片横向纵向编号和层级，切片大小
-        256。假设每次创建的贴片为A(支持img或者canvas)，当创建或者获取成功时请回调success(A)，不需要显示或者失败时请回调fail()
-    -   `opts.zooms` **\[Number, Number]** 支持的缩放级别范围，默认范围 [2-30] (optional, default `[2,30]`)
-    -   `opts.opacity` **Number** 透明度，默认 1 (optional, default `1`)
-    -   `opts.visible` **Boolean** 是否显示，默认 true (optional, default `true`)
-    -   `opts.zIndex` **Number** 图层叠加的顺序值，1 表示最底层。默认 zIndex：4 (optional, default `4`)
-    -   `opts.tileSize` **Number** 切片大小，取值： </br>
-        256，表示切片大小为256_256， </br>
-        128，表示切片大小为128_128， </br>
-        64，表示切片大小为64\*64。默认值为256 (optional, default `256`)
+- `opts` **FlexibleLayerOptions**
+  - `opts.cacheSize` **Number** 缓存瓦片数量
+  - `opts.createTile` **function (x, y, z, success, fail)** 由开发者实现，由API自动调用，xyz分别为切片横向纵向编号和层级，切片大小
+    256。假设每次创建的贴片为A(支持img或者canvas)，当创建或者获取成功时请回调success(A)，不需要显示或者失败时请回调fail()
+  - `opts.zooms` **\[Number, Number]** 支持的缩放级别范围，默认范围 [2-30] (optional, default `[2,30]`)
+  - `opts.opacity` **Number** 透明度，默认 1 (optional, default `1`)
+  - `opts.visible` **Boolean** 是否显示，默认 true (optional, default `true`)
+  - `opts.zIndex` **Number** 图层叠加的顺序值，1 表示最底层。默认 zIndex：4 (optional, default `4`)
+  - `opts.tileSize` **Number** 切片大小，取值： </br>
+    256，表示切片大小为256_256， </br>
+    128，表示切片大小为128_128， </br>
+    64，表示切片大小为64\*64。默认值为256 (optional, default `256`)
 
 ### getOptions
 
@@ -642,7 +641,7 @@ Returns **Number** zIndex 图层层级
 
 #### Parameters
 
--   `zIndex` **Number** 图层层级值
+- `zIndex` **Number** 图层层级值
 
 ### getOpacity
 
@@ -656,7 +655,7 @@ Returns **Number** opacity 图层透明度
 
 #### Parameters
 
--   `opacity` **Number** 图层透明度
+- `opacity` **Number** 图层透明度
 
 ### getZooms
 
@@ -670,7 +669,7 @@ Returns **\[Number, Number]** 缩放范围
 
 #### Parameters
 
--   `zooms` **\[Number, Number]** 缩放范围
+- `zooms` **\[Number, Number]** 缩放范围
 
 ### show
 
@@ -693,25 +692,22 @@ Returns **\[Number, Number]** 缩放范围
 
 ### Parameters
 
--   `opts` **ImageLayerOptions** 传入默认参数列表
-    -   `opts.url` **String** 图片地址链接
-    -   `opts.zooms` **\[Number, Number]** 图层缩放等级范围，默认 [2, 30] (optional, default `[2,30]`)
-    -   `opts.bounds` **(\[Number, Number, Number, Number] | Bounds)** 图片的范围大小经纬度，如果传递数字数组类型: [minlng,minlat,maxlng,maxlat]
-    -   `opts.opacity` **Number** 图层透明度，默认为 1 (optional, default `1`)
-    -   `opts.visible` **Boolean** 图层是否可见，默认为 true (optional, default `true`)
-    -   `opts.zIndex` **Number** 图层的层级，默认为 6 (optional, default `6`)
+- `opts` **ImageLayerOptions** 传入默认参数列表
+  - `opts.url` **String** 图片地址链接
+  - `opts.zooms` **\[Number, Number]** 图层缩放等级范围，默认 [2, 30] (optional, default `[2,30]`)
+  - `opts.bounds` **(\[Number, Number, Number, Number] | Bounds)** 图片的范围大小经纬度，如果传递数字数组类型: [minlng,minlat,maxlng,maxlat]
+  - `opts.opacity` **Number** 图层透明度，默认为 1 (optional, default `1`)
+  - `opts.visible` **Boolean** 图层是否可见，默认为 true (optional, default `true`)
+  - `opts.zIndex` **Number** 图层的层级，默认为 6 (optional, default `6`)
 
 ### Examples
 
 ```javascript
 var imageLayer = new AMap.ImageLayer({
-     url: 'https://amappc.cn-hangzhou.oss-pub.aliyun-inc.com/lbs/static/img/dongwuyuan.jpg',
-     bounds: new AMap.Bounds(
-         [116.327911, 39.939229],
-         [116.342659, 39.946275]
-     ),
-     zooms: [10, 18]
- });
+	url: 'https://amappc.cn-hangzhou.oss-pub.aliyun-inc.com/lbs/static/img/dongwuyuan.jpg',
+	bounds: new AMap.Bounds([116.327911, 39.939229], [116.342659, 39.946275]),
+	zooms: [10, 18]
+});
 ```
 
 ### getImageUrl
@@ -724,7 +720,7 @@ var imageLayer = new AMap.ImageLayer({
 
 #### Parameters
 
--   `url` **String** 图片地址
+- `url` **String** 图片地址
 
 ### getBounds
 
@@ -754,7 +750,7 @@ Returns **Number** zIndex 图层层级
 
 #### Parameters
 
--   `zIndex` **Number** 图层层级值
+- `zIndex` **Number** 图层层级值
 
 ### getOpacity
 
@@ -768,7 +764,7 @@ Returns **Number** opacity 图层透明度
 
 #### Parameters
 
--   `opacity` **Number** 图层透明度
+- `opacity` **Number** 图层透明度
 
 ### getZooms
 
@@ -782,7 +778,7 @@ Returns **\[number, number]** 缩放范围
 
 #### Parameters
 
--   `zooms` **\[number, number]** 缩放范围
+- `zooms` **\[number, number]** 缩放范围
 
 ### show
 
@@ -801,13 +797,13 @@ Canvas图层类，用户可以将一个 Canvas 作为图层添加在地图上，
 
 ### Parameters
 
--   `opts` **ImageLayerOptions** 传入默认参数列表
-    -   `opts.canvas` **HTMLCanvasElement** Canvas DOM 对象
-    -   `opts.zooms` **\[Number, Number]** 图层缩放等级范围，默认 [2, 30] (optional, default `[2,30]`)
-    -   `opts.bounds` **(\[Number, Number, Number, Number] | Bounds)** canvas 的范围大小经纬度, 如果传递数字数组类型: [minlng,minlat,maxlng,maxlat]
-    -   `opts.opacity` **Number** 图层透明度，默认为 1 (optional, default `1`)
-    -   `opts.visible` **Boolean** 图层是否可见，默认为 true (optional, default `true`)
-    -   `opts.zIndex` **Number** 图层的层级，默认为 6 (optional, default `6`)
+- `opts` **ImageLayerOptions** 传入默认参数列表
+  - `opts.canvas` **HTMLCanvasElement** Canvas DOM 对象
+  - `opts.zooms` **\[Number, Number]** 图层缩放等级范围，默认 [2, 30] (optional, default `[2,30]`)
+  - `opts.bounds` **(\[Number, Number, Number, Number] | Bounds)** canvas 的范围大小经纬度, 如果传递数字数组类型: [minlng,minlat,maxlng,maxlat]
+  - `opts.opacity` **Number** 图层透明度，默认为 1 (optional, default `1`)
+  - `opts.visible` **Boolean** 图层是否可见，默认为 true (optional, default `true`)
+  - `opts.zIndex` **Number** 图层的层级，默认为 6 (optional, default `6`)
 
 ### setCanvas
 
@@ -815,7 +811,7 @@ Canvas图层类，用户可以将一个 Canvas 作为图层添加在地图上，
 
 #### Parameters
 
--   `canvas` **HTMLCanvasElement** 
+- `canvas` **HTMLCanvasElement**
 
 ### getElement
 
@@ -855,7 +851,7 @@ Returns **number** zIndex 图层层级
 
 #### Parameters
 
--   `zIndex` **number** 图层层级值
+- `zIndex` **number** 图层层级值
 
 ### getOpacity
 
@@ -869,7 +865,7 @@ Returns **number** opacity 图层透明度
 
 #### Parameters
 
--   `opacity` **number** 图层透明度
+- `opacity` **number** 图层透明度
 
 ### getZooms
 
@@ -883,7 +879,7 @@ Returns **\[number, number]** 缩放范围
 
 #### Parameters
 
--   `zooms` **\[number, number]** 缩放范围
+- `zooms` **\[number, number]** 缩放范围
 
 ### show
 
@@ -899,25 +895,25 @@ Returns **\[number, number]** 缩放范围
 
 ### Parameters
 
--   `opts` **GlCustomLayerOptions** 
-    -   `opts.init` **Function** 初始化的时候，开发者可以在这个函数参数里面获取 gl 上下文，进行一些初始化的操作。
-    -   `opts.render` **Function** 绘制函数，初始化完成时候，开发者需要给该图层设定render方法， </br>
-        该方法需要实现图层的绘制，API会在合适的时机自动调用该方法
-    -   `opts.zooms` **\[Number, Number]** 图层缩放等级范围，默认 [2, 20] (optional, default `[2,20]`)
-    -   `opts.opacity` **Number** 图层透明度，默认为 1 (optional, default `1`)
-    -   `opts.visible` **Boolean** 图层是否可见，默认为 true (optional, default `true`)
-    -   `opts.zIndex` **Number** 图层的层级，默认为 120 (optional, default `10`)
+- `opts` **GlCustomLayerOptions**
+  - `opts.init` **Function** 初始化的时候，开发者可以在这个函数参数里面获取 gl 上下文，进行一些初始化的操作。
+  - `opts.render` **Function** 绘制函数，初始化完成时候，开发者需要给该图层设定render方法， </br>
+    该方法需要实现图层的绘制，API会在合适的时机自动调用该方法
+  - `opts.zooms` **\[Number, Number]** 图层缩放等级范围，默认 [2, 20] (optional, default `[2,20]`)
+  - `opts.opacity` **Number** 图层透明度，默认为 1 (optional, default `1`)
+  - `opts.visible` **Boolean** 图层是否可见，默认为 true (optional, default `true`)
+  - `opts.zIndex` **Number** 图层的层级，默认为 120 (optional, default `10`)
 
 ### Examples
 
 ```javascript
 var glCustomLayer = new GLCustomLayer({
-    init: function(gl){
-        // init shader or sth...
-    },
-    render: function(gl, state){
-        // render every frame
-    },
+	init: function (gl) {
+		// init shader or sth...
+	},
+	render: function (gl, state) {
+		// render every frame
+	}
 });
 ```
 
@@ -925,13 +921,13 @@ var glCustomLayer = new GLCustomLayer({
 
 获取GLCustomLayer所属地图实例
 
-Returns **(Map | null)** 
+Returns **(Map | null)**
 
 ### getzIndex
 
 获取GLCustomLayer叠加顺序
 
-Returns **number** 
+Returns **number**
 
 ### setzIndex
 
@@ -939,15 +935,15 @@ Returns **number**
 
 #### Parameters
 
--   `zIndex` **number** 叠加值
+- `zIndex` **number** 叠加值
 
-Returns **void** 
+Returns **void**
 
 ### getOpacity
 
 获取GLCustomLayer透明度
 
-Returns **number** 
+Returns **number**
 
 ### setOpacity
 
@@ -955,15 +951,15 @@ Returns **number**
 
 #### Parameters
 
--   `opacity` **number** 透明度
+- `opacity` **number** 透明度
 
-Returns **void** 
+Returns **void**
 
 ### getZooms
 
 获取GLCustomLayer显示层级范围
 
-Returns **number** 
+Returns **number**
 
 ### setZooms
 
@@ -971,18 +967,18 @@ Returns **number**
 
 #### Parameters
 
--   `zooms` **Vector** 显示层级范围，默认[3, 20]
+- `zooms` **Vector** 显示层级范围，默认[3, 20]
 
-Returns **number** 
+Returns **number**
 
 ### show
 
 显示GLCustomLayer
 
-Returns **void** 
+Returns **void**
 
 ### hide
 
 隐藏GLCustomLayer
 
-Returns **void** 
+Returns **void**

@@ -15,6 +15,7 @@ map.add(layer);
 ### 衍生图层
 
 - **卫星图层 (Satellite)**
+
   ```javascript
   const satellite = new AMap.TileLayer.Satellite();
   map.add(satellite);
@@ -22,6 +23,7 @@ map.add(layer);
 
 - **路网图层 (RoadNet)**
   通常叠加在卫星图上使用，展示道路网络。
+
   ```javascript
   const roadNet = new AMap.TileLayer.RoadNet();
   map.add(roadNet);
@@ -31,9 +33,9 @@ map.add(layer);
   展示实时的交通拥堵情况。
   ```javascript
   const traffic = new AMap.TileLayer.Traffic({
-      zIndex: 10,
-      autoRefresh: true, // 是否自动刷新
-      interval: 180,     // 刷新间隔 (秒)
+  	zIndex: 10,
+  	autoRefresh: true, // 是否自动刷新
+  	interval: 180 // 刷新间隔 (秒)
   });
   map.add(traffic);
   ```
@@ -53,7 +55,7 @@ map.add(buildings);
 // 设置楼块样式
 buildings.setStyle({
     hideWithoutStyle: false, // 是否隐藏未设置样式的楼块
-    areas: [{ 
+    areas: [{
         color1: 'red', // 顶面颜色
         color2: 'blue', // 侧面颜色
         path: [[116.403322, 39.920255], ...], // 围栏区域
@@ -67,12 +69,12 @@ buildings.setStyle({
 
 ```javascript
 const indoor = new AMap.IndoorMap({
-    alwaysShow: true, // 是否始终显示
+	alwaysShow: true // 是否始终显示
 });
 map.add(indoor);
 
 // 监听楼层切换
-indoor.on('floor_change', function(e) {
-    console.log('当前楼层：', e.floor);
+indoor.on('floor_change', function (e) {
+	console.log('当前楼层：', e.floor);
 });
 ```

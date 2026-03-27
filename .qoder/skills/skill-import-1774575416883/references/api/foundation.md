@@ -2,14 +2,13 @@
 
 经纬度、像素、边界、大小、这些是地图 JSAPI 开发必须了解的基本类型
 
-
 ## LngLat
 
 ### Parameters
 
--   `lng`  
--   `lat`  
--   `noWrap`   (optional, default `false`)
+- `lng`
+- `lat`
+- `noWrap` (optional, default `false`)
 
 ### lat
 
@@ -29,7 +28,7 @@ Type: number
 
 #### Parameters
 
--   `lng` **number** 经度
+- `lng` **number** 经度
 
 ### setLat
 
@@ -37,19 +36,19 @@ Type: number
 
 #### Parameters
 
--   `lat` **number** 
+- `lat` **number**
 
 ### getLng
 
 获取经度值
 
-Returns **number** 
+Returns **number**
 
 ### getLat
 
 获取纬度值
 
-Returns **number** 
+Returns **number**
 
 ### equals
 
@@ -57,7 +56,7 @@ Returns **number**
 
 #### Parameters
 
--   `another` **LngLat** 另外一个经纬度坐标
+- `another` **LngLat** 另外一个经纬度坐标
 
 Returns **Boolean** 是否相等
 
@@ -67,8 +66,8 @@ Returns **Boolean** 是否相等
 
 #### Parameters
 
--   `another` **LngLat** 另外一个经纬度坐标
--   `noWrap` **boolean** 是否将相加的结果经度值修正到 [-180,180] 区间内
+- `another` **LngLat** 另外一个经纬度坐标
+- `noWrap` **boolean** 是否将相加的结果经度值修正到 [-180,180] 区间内
 
 Returns **LngLat** 两个经纬度相加的结果
 
@@ -78,8 +77,8 @@ Returns **LngLat** 两个经纬度相加的结果
 
 #### Parameters
 
--   `another` **LngLat** 另外一个经纬度坐标
--   `noWrap` **boolean** 是否将相减的结果经度值修正到 [-180,180] 区间内
+- `another` **LngLat** 另外一个经纬度坐标
+- `noWrap` **boolean** 是否将相减的结果经度值修正到 [-180,180] 区间内
 
 Returns **LngLat** 两个经纬度相减的结果
 
@@ -89,8 +88,8 @@ Returns **LngLat** 两个经纬度相减的结果
 
 #### Parameters
 
--   `E` **Number** 经度方向移动，向东为正
--   `N` **Number** 维度方向移动，向北为正
+- `E` **Number** 经度方向移动，向东为正
+- `N` **Number** 维度方向移动，向北为正
 
 Returns **LngLat** 移动后的新经纬度
 
@@ -120,11 +119,11 @@ Returns **number** 距离值，单位为米
 
 ### Parameters
 
--   `lng` **number** 经度值
--   `lat` **number** 纬度值
--   `noWrap` **boolean** 是否自动将经度值修正到 [-180,180] 区间内，缺省为false;
-    noWrap 为false时传入[190,30]，会被自动修正为[-170,30],
-    noWrap 为true时不会自动修正，可以用来进行跨日期限的覆盖物绘制
+- `lng` **number** 经度值
+- `lat` **number** 纬度值
+- `noWrap` **boolean** 是否自动将经度值修正到 [-180,180] 区间内，缺省为false;
+  noWrap 为false时传入[190,30]，会被自动修正为[-170,30],
+  noWrap 为true时不会自动修正，可以用来进行跨日期限的覆盖物绘制
 
 ### Examples
 
@@ -150,7 +149,7 @@ Type: number
 
 #### Parameters
 
--   `lng` **number** 经度
+- `lng` **number** 经度
 
 ### setLat
 
@@ -158,19 +157,19 @@ Type: number
 
 #### Parameters
 
--   `lat` **number** 
+- `lat` **number**
 
 ### getLng
 
 获取经度值
 
-Returns **number** 
+Returns **number**
 
 ### getLat
 
 获取纬度值
 
-Returns **number** 
+Returns **number**
 
 ### equals
 
@@ -178,7 +177,7 @@ Returns **number**
 
 #### Parameters
 
--   `another` **LngLat** 另外一个经纬度坐标
+- `another` **LngLat** 另外一个经纬度坐标
 
 Returns **Boolean** 是否相等
 
@@ -188,8 +187,8 @@ Returns **Boolean** 是否相等
 
 #### Parameters
 
--   `another` **LngLat** 另外一个经纬度坐标
--   `noWrap` **boolean** 是否将相加的结果经度值修正到 [-180,180] 区间内
+- `another` **LngLat** 另外一个经纬度坐标
+- `noWrap` **boolean** 是否将相加的结果经度值修正到 [-180,180] 区间内
 
 Returns **LngLat** 两个经纬度相加的结果
 
@@ -199,8 +198,8 @@ Returns **LngLat** 两个经纬度相加的结果
 
 #### Parameters
 
--   `another` **LngLat** 另外一个经纬度坐标
--   `noWrap` **boolean** 是否将相减的结果经度值修正到 [-180,180] 区间内
+- `another` **LngLat** 另外一个经纬度坐标
+- `noWrap` **boolean** 是否将相减的结果经度值修正到 [-180,180] 区间内
 
 Returns **LngLat** 两个经纬度相减的结果
 
@@ -210,8 +209,8 @@ Returns **LngLat** 两个经纬度相减的结果
 
 #### Parameters
 
--   `E` **Number** 经度方向移动，向东为正
--   `N` **Number** 维度方向移动，向北为正
+- `E` **Number** 经度方向移动，向东为正
+- `N` **Number** 维度方向移动，向北为正
 
 Returns **LngLat** 移动后的新经纬度
 
@@ -240,32 +239,32 @@ Returns **number** 距离值，单位为米
 
 ### Parameters
 
--   `southWest` **LngLat** 西南角经纬度
--   `northEast` **LngLat** 东北角经纬度值
+- `southWest` **LngLat** 西南角经纬度
+- `northEast` **LngLat** 东北角经纬度值
 
 ### getSouthWest
 
 获取西南角坐标。
 
-Returns **LngLat** 
+Returns **LngLat**
 
 ### getNorthEast
 
 获取东北角坐标
 
-Returns **LngLat** 
+Returns **LngLat**
 
 ### getNorthEast
 
 获取西北角坐标
 
-Returns **LngLat** 
+Returns **LngLat**
 
 ### getNorthEast
 
 获取东南角坐标
 
-Returns **LngLat** 
+Returns **LngLat**
 
 ### contains
 
@@ -274,27 +273,27 @@ Returns **LngLat**
 
 #### Parameters
 
--   `obj` **LngLat** 
+- `obj` **LngLat**
 
 #### Examples
 
 ```javascript
-bounds.contains(new AMap.LngLat(116,39));
+bounds.contains(new AMap.LngLat(116, 39));
 ```
 
-Returns **Boolean** 
+Returns **Boolean**
 
 ### getCenter
 
 获取当前Bounds的中心点经纬度坐标。
 
-Returns **LngLat** 
+Returns **LngLat**
 
 ### toString
 
 以字符串形式返回地图对象的矩形范围
 
-Returns **String** 
+Returns **String**
 
 ## Pixel
 
@@ -302,26 +301,26 @@ Returns **String**
 
 ### Parameters
 
--   `x` **number** 
--   `y` **number** 
+- `x` **number**
+- `y` **number**
 
 ### getX
 
 获取像素横坐标
 
-Returns **Number** 
+Returns **Number**
 
 ### getY
 
 获取像素纵坐标
 
-Returns **Number** 
+Returns **Number**
 
 ### toString
 
 以字符串形式返回像素坐标对象
 
-Returns **string** 
+Returns **string**
 
 ### equals
 
@@ -329,9 +328,9 @@ Returns **string**
 
 #### Parameters
 
--   `point` **Pixel** 
+- `point` **Pixel**
 
-Returns **boolean** 
+Returns **boolean**
 
 ## Size
 
@@ -339,23 +338,23 @@ Returns **boolean**
 
 ### Parameters
 
--   `width` **number** 宽度
--   `height` **number** 高度
+- `width` **number** 宽度
+- `height` **number** 高度
 
 ### getWidth
 
 获取像素横坐标
 
-Returns **Number** 
+Returns **Number**
 
 ### getHeight
 
 获取像素纵坐标
 
-Returns **Number** 
+Returns **Number**
 
 ### toString
 
 以字符串形式返回尺寸大小对象
 
-Returns **string** 
+Returns **string**

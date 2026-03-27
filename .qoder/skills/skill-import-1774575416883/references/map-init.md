@@ -9,12 +9,14 @@
 ```javascript
 // 必须在加载前执行
 window._AMapSecurityConfig = {
-  securityJsCode: '您的安全密钥',
+	securityJsCode: '您的安全密钥'
 };
 ```
 
 ## 1. 引入加载器
+
 使用 script 标签加载 loader.js：
+
 ```bash
 <script src="https://webapi.amap.com/loader.js"></script>
 ```
@@ -27,41 +29,43 @@ window._AMapSecurityConfig = {
 import AMapLoader from '@amap/amap-jsapi-loader';
 
 AMapLoader.load({
-    key: '您的Key',              // 必填，申请的 Web 端开发者 Key
-    version: '2.0',             // 必填，指定版本号
-    plugins: ['AMap.Scale'],    // 预加载插件列表
-}).then((AMap) => {
-    // JSAPI 加载完成，可以开始初始化地图
-    initMap(AMap);
-}).catch((e) => {
-    console.error('地图加载失败', e);
-});
+	key: '您的Key', // 必填，申请的 Web 端开发者 Key
+	version: '2.0', // 必填，指定版本号
+	plugins: ['AMap.Scale'] // 预加载插件列表
+})
+	.then((AMap) => {
+		// JSAPI 加载完成，可以开始初始化地图
+		initMap(AMap);
+	})
+	.catch((e) => {
+		console.error('地图加载失败', e);
+	});
 ```
 
 ## 3. 进阶配置 (Advanced Configuration)
 
 ### 加载 Loca 数据可视化库
+
 Loca 是高德地图基于 WebGL 的高性能数据可视化库。需要在加载器中显式声明 `Loca` 配置。
 
 ```javascript
 AMapLoader.load({
-    key: '您的Key',
-    version: '2.0',
-    Loca: {
-        version: '2.0.0' // 指定 Loca 版本
-    }
+	key: '您的Key',
+	version: '2.0',
+	Loca: {
+		version: '2.0.0' // 指定 Loca 版本
+	}
 }).then((AMap) => {
-    const map = new AMap.Map('container');
-    
-    // 初始化 Loca 容器
-    const loca = new Loca.Container({
-        map: map,
-    });
+	const map = new AMap.Map('container');
+
+	// 初始化 Loca 容器
+	const loca = new Loca.Container({
+		map: map
+	});
 });
 ```
 
-
-```
+````
 
 ### 加载器参数详解
 
@@ -92,55 +96,59 @@ function initMap(AMap) {
     // 添加控件
     map.addControl(new AMap.Scale());
 }
-```
+````
+
 ### 常用配置项
 
-| 参数 | 类型 | 默认值 | 说明 |
-| :--- | :--- | :--- | :--- |
-| viewMode | String | '2D' | 渲染模式：'2D' 或 '3D' |
-| zoom | Number | - | 初始缩放级别 |
-| center | Array | - | 初始中心点 [lng, lat] |
-| pitch | Number | 0 | 俯仰角度 (3D 模式有效) |
-| rotation | Number | 0 | 旋转角度 |
-| mapStyle | String | - | 地图样式 URL |
-| zooms | Array | [2, 20] | 缩放级别范围 |
+| 参数     | 类型   | 默认值  | 说明                   |
+| :------- | :----- | :------ | :--------------------- |
+| viewMode | String | '2D'    | 渲染模式：'2D' 或 '3D' |
+| zoom     | Number | -       | 初始缩放级别           |
+| center   | Array  | -       | 初始中心点 [lng, lat]  |
+| pitch    | Number | 0       | 俯仰角度 (3D 模式有效) |
+| rotation | Number | 0       | 旋转角度               |
+| mapStyle | String | -       | 地图样式 URL           |
+| zooms    | Array  | [2, 20] | 缩放级别范围           |
 
 ## 4. 地图生命周期管理
+
 ### 地图加载完成
 
 ```javascript
-map.on('complete', function() {
-  console.log('地图加载完成');
+map.on('complete', function () {
+	console.log('地图加载完成');
 });
 ```
 
 ### 销毁地图
+
 在组件卸载或不再需要地图时，务必调用 `destroy` 方法以释放 WebGL 上下文和内存资源。
 
 ```javascript
 // 销毁地图实例
 if (map) {
-    map.destroy();
-    map = null;
+	map.destroy();
+	map = null;
 }
 ```
+
 ## 5. 地图样式
 
 ### 官方主题样式
 
 ```javascript
 const map = new AMap.Map('container', {
-  mapStyle: 'amap://styles/normal', // 标准
-  // mapStyle: 'amap://styles/dark',      // 幻影黑
-  // mapStyle: 'amap://styles/light',     // 月光银
-  // mapStyle: 'amap://styles/whitesmoke',// 远山黛
-  // mapStyle: 'amap://styles/fresh',     // 草色青
-  // mapStyle: 'amap://styles/grey',      // 雅士灰
-  // mapStyle: 'amap://styles/graffiti',  // 涂鸦
-  // mapStyle: 'amap://styles/macaron',   // 马卡龙
-  // mapStyle: 'amap://styles/blue',      // 靛青蓝
-  // mapStyle: 'amap://styles/darkblue',  // 极夜蓝
-  // mapStyle: 'amap://styles/wine',      // 酱籽
+	mapStyle: 'amap://styles/normal' // 标准
+	// mapStyle: 'amap://styles/dark',      // 幻影黑
+	// mapStyle: 'amap://styles/light',     // 月光银
+	// mapStyle: 'amap://styles/whitesmoke',// 远山黛
+	// mapStyle: 'amap://styles/fresh',     // 草色青
+	// mapStyle: 'amap://styles/grey',      // 雅士灰
+	// mapStyle: 'amap://styles/graffiti',  // 涂鸦
+	// mapStyle: 'amap://styles/macaron',   // 马卡龙
+	// mapStyle: 'amap://styles/blue',      // 靛青蓝
+	// mapStyle: 'amap://styles/darkblue',  // 极夜蓝
+	// mapStyle: 'amap://styles/wine',      // 酱籽
 });
 
 // 动态切换样式
@@ -151,7 +159,7 @@ map.setMapStyle('amap://styles/dark');
 
 ```vue
 <template>
-  <div id="map-container" style="width: 100%; height: 500px;"></div>
+	<div id="map-container" style="width: 100%; height: 500px;"></div>
 </template>
 
 <script setup>
@@ -161,28 +169,31 @@ import AMapLoader from '@amap/amap-jsapi-loader';
 const map = shallowRef(null); // 使用 shallowRef 避免深层响应式带来的性能损耗
 
 onMounted(() => {
-  window._AMapSecurityConfig = { securityJsCode: '您的安全密钥' };
+	window._AMapSecurityConfig = { securityJsCode: '您的安全密钥' };
 
-  AMapLoader.load({
-    key: '您的Key',
-    version: '2.0',
-    plugins: ['AMap.Scale'], // 按需加载插件
-  }).then((AMap) => {
-    map.value = new AMap.Map('map-container', {
-      viewMode: '3D',
-      zoom: 12,
-      center: [120.15, 30.28],
-    });
-    // 添加插件
-    map.value.addControl(new AMap.Scale());
-  }).catch(e => console.error(e));
+	AMapLoader.load({
+		key: '您的Key',
+		version: '2.0',
+		plugins: ['AMap.Scale'] // 按需加载插件
+	})
+		.then((AMap) => {
+			map.value = new AMap.Map('map-container', {
+				viewMode: '3D',
+				zoom: 12,
+				center: [120.15, 30.28]
+			});
+			// 添加插件
+			map.value.addControl(new AMap.Scale());
+		})
+		.catch((e) => console.error(e));
 });
 
 onUnmounted(() => {
-  map.value?.destroy();
+	map.value?.destroy();
 });
 </script>
 ```
+
 ## 5. 地图控件
 
 ```javascript
@@ -190,14 +201,18 @@ onUnmounted(() => {
 map.addControl(new AMap.Scale());
 
 // 工具条（缩放、定位）
-map.addControl(new AMap.ToolBar({
-  position: 'RT' // 右上角
-}));
+map.addControl(
+	new AMap.ToolBar({
+		position: 'RT' // 右上角
+	})
+);
 
 // 3D 控制（旋转、俯仰）
-map.addControl(new AMap.ControlBar({
-  position: { right: '10px', top: '10px' }
-}));
+map.addControl(
+	new AMap.ControlBar({
+		position: { right: '10px', top: '10px' }
+	})
+);
 
 // 鹰眼（缩略图）
 map.addControl(new AMap.HawkEye());
@@ -213,35 +228,37 @@ import React, { useEffect, useRef } from 'react';
 import AMapLoader from '@amap/amap-jsapi-loader';
 
 export default function MapComponent() {
-  const mapRef = useRef(null);
+	const mapRef = useRef(null);
 
-  useEffect(() => {
-    // 安全密钥配置
-    window._AMapSecurityConfig = { securityJsCode: '您的安全密钥' };
+	useEffect(() => {
+		// 安全密钥配置
+		window._AMapSecurityConfig = { securityJsCode: '您的安全密钥' };
 
-    AMapLoader.load({
-      key: '您的Key',
-      version: '2.0',
-      plugins: ['AMap.Scale'], // 预加载插件
-    }).then((AMap) => {
-      mapRef.current = new AMap.Map('map-container', {
-        viewMode: '3D',
-        zoom: 11,
-        center: [116.397428, 39.90923],
-      });
+		AMapLoader.load({
+			key: '您的Key',
+			version: '2.0',
+			plugins: ['AMap.Scale'] // 预加载插件
+		})
+			.then((AMap) => {
+				mapRef.current = new AMap.Map('map-container', {
+					viewMode: '3D',
+					zoom: 11,
+					center: [116.397428, 39.90923]
+				});
 
-      // 添加控件
-      mapRef.current.addControl(new AMap.Scale());
-    }).catch((e) => {
-      console.error('地图加载失败', e);
-    });
+				// 添加控件
+				mapRef.current.addControl(new AMap.Scale());
+			})
+			.catch((e) => {
+				console.error('地图加载失败', e);
+			});
 
-    // 销毁地图
-    return () => {
-      mapRef.current?.destroy();
-    };
-  }, []);
+		// 销毁地图
+		return () => {
+			mapRef.current?.destroy();
+		};
+	}, []);
 
-  return <div id="map-container" style={{ width: '100%', height: '500px' }} />;
+	return <div id="map-container" style={{ width: '100%', height: '500px' }} />;
 }
 ```
