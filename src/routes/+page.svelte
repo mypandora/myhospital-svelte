@@ -823,32 +823,3 @@
 		{/if}
 	</Button>
 </div>
-
-<style>
-	/* CircleEditor 编辑点样式 */
-	:global(.circle-editor-move-point) {
-		width: 16px;
-		height: 16px;
-		background: #fff;
-		border: 2px solid #1791fc;
-		border-radius: 50%;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-		cursor: move;
-	}
-
-	:global(.circle-editor-resize-point) {
-		width: 14px;
-		height: 14px;
-		background: #ff33ff;
-		border: 2px solid #fff;
-		border-radius: 50%;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-		cursor: nwse-resize;
-	}
-
-	:global(.circle-editor-move-point:hover),
-	:global(.circle-editor-resize-point:hover) {
-		transform: scale(1.2);
-		transition: transform 0.2s ease;
-	}
-</style>
