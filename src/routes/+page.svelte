@@ -750,9 +750,9 @@
 		circleEditors.clear();
 
 		circles.forEach((c) => {
-		c.off('rightclick', handleCircleRightClick);
-		c.off('dragend', handleCircleDragEnd);
-		map?.remove(c);
+			c.off('rightclick', handleCircleRightClick);
+			c.off('dragend', handleCircleDragEnd);
+			map?.remove(c);
 		});
 		circles = [];
 
