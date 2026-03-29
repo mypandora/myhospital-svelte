@@ -1,13 +1,15 @@
 <script>
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import Command from '@lucide/svelte/icons/command';
+
+	const resolve = (path) => path;
 </script>
 
 <Sidebar.Menu class="">
 	<Sidebar.MenuItem class="">
 		<Sidebar.MenuButton size="lg">
 			{#snippet child({ props })}
-				<a href="##" {...props}>
+				<a href={resolve('/')} {...props}>
 					<div
 						class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
 					>
