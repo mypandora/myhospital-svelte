@@ -20,7 +20,7 @@
 				</Avatar.Root>
 			</DropdownMenu.Trigger>
 		{:else}
-			<Button class="" variant="link" href="/login">登录</Button>
+			<Button class="" variant="link" href="/login" disabled={false}>登录</Button>
 		{/if}
 		<LoginPop {user} isMobile={false} showDashboard={true} />
 	</DropdownMenu.Root>

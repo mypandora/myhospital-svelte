@@ -1,6 +1,6 @@
 <script>
 	import { superForm } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import { formSchema } from './schema.js';
 
 	import * as Form from '$lib/components/ui/form';
@@ -14,7 +14,7 @@
 	let { data } = $props();
 
 	const form = superForm(data, {
-		validators: zodClient(formSchema)
+		validators: zod4Client(formSchema)
 	});
 
 	const { form: formData, enhance } = form;
@@ -40,7 +40,7 @@
 		<Form.FieldErrors class="h-5" errorClasses="animate-bounce" />
 	</Form.Field>
 
-	<Form.Button class="w-full">登录</Form.Button>
+	<Form.Button class="w-full" size="lg">登录</Form.Button>
 
 	<div class="flex items-center justify-between">
 		<Checkbox id="remember-me" class="mr-2" />
