@@ -546,7 +546,7 @@
 				editor.close();
 				circleEditors.delete(extData.id);
 			}
-			circleMarkerMap.delete(extData.id);
+			removeMarker(c);
 		}
 
 		map?.remove(c);
