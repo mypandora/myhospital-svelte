@@ -1,7 +1,7 @@
 <script>
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
 	import PanelLeftIcon from '@lucide/svelte/icons/panel-left';
+	import { cn } from '$lib/utils.js';
 	import { useSidebar } from './context.svelte.js';
 
 	let { ref = $bindable(null), class: className, onclick, ...restProps } = $props();
@@ -10,11 +10,12 @@
 </script>
 
 <Button
+	bind:ref
 	data-sidebar="trigger"
 	data-slot="sidebar-trigger"
 	variant="ghost"
-	size="icon"
-	class={cn('size-7', className)}
+	size="icon-sm"
+	class={cn('cn-sidebar-trigger', className)}
 	type="button"
 	onclick={(e) => {
 		onclick?.(e);
