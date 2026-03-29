@@ -10,9 +10,9 @@
 	import { Expand, Shrink, Sun, Moon } from '@lucide/svelte/icons';
 
 	let AMapLoader = null;
-	/** @type {import('./index/types').Hospital | undefined} */
+	/** @type {Hospital | undefined} */
 	let hospital = $state();
-	/** @type {import('./index/types').Hospital[]} */
+	/** @type {Hospital[]} */
 	let hospitalList = $state([]);
 	/** @type {Set<number>} */
 	let allHospitalIds = $state(new SvelteSet());
@@ -425,11 +425,10 @@
 		handleFetch({ lng: center.lng, lat: center.lat, radius });
 	}
 
-	/** @param {any[]} list - 医院列表 */
+	/** @param {Hospital[]} list - 医院列表 */
 	function addMarker(list) {
 		if (!Array.isArray(list)) return;
 
-		/** @type {Array<import('./index/types').Hospital>} */
 		const newList = [];
 		list
 			.filter((item) => !allHospitalIds.has(item.id))
@@ -439,9 +438,8 @@
 			});
 
 		newList.forEach((item) => {
-			const { name, lngLat } = item;
-			if (!lngLat?.coordinates || lngLat.coordinates.length < 2) return;
-			const [lng, lat] = lngLat.coordinates;
+			const { name, lng, lat } = item;
+			if (!lat || !lng) return;
 			/* global AMap */
 			const marker = new AMap.Marker({
 				map,
@@ -451,7 +449,7 @@
 			});
 			const clickHandler = () => {
 				hospital = item;
-				infoWindow?.open(map, lngLat.coordinates);
+				infoWindow?.open(map, new AMap.LngLat(lng, lat));
 			};
 			marker.on('click', clickHandler);
 			markerMap.set(item.id, { marker, clickHandler });
@@ -575,13 +573,7 @@
 				return;
 			}
 
-			let hospitals;
-			try {
-				hospitals = await response.json();
-			} catch (parseError) {
-				console.error('JSON解析失败:', parseError);
-				return;
-			}
+			const { data: hospitals } = await response.json();
 
 			addMarker(hospitals);
 		} catch (/** @type {any} */ error) {
