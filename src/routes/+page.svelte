@@ -573,9 +573,13 @@
 				return;
 			}
 
-			const { data: hospitals } = await response.json();
+			const result = await response.json();
 
-			addMarker(hospitals);
+			if (result.success && result.data) {
+				addMarker(result.data);
+			} else if (result.message) {
+				console.error('请求错误:', result.message);
+			}
 		} catch (/** @type {any} */ error) {
 			if (error.name === 'AbortError') {
 				console.warn('请求超时');
