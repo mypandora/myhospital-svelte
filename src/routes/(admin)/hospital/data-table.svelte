@@ -10,6 +10,40 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
 
+	const PROVINCES = [
+		{ code: '11', name: '北京' },
+		{ code: '12', name: '天津' },
+		{ code: '13', name: '河北' },
+		{ code: '14', name: '山西' },
+		{ code: '15', name: '内蒙古' },
+		{ code: '21', name: '辽宁' },
+		{ code: '22', name: '吉林' },
+		{ code: '23', name: '黑龙江' },
+		{ code: '31', name: '上海' },
+		{ code: '32', name: '江苏' },
+		{ code: '33', name: '浙江' },
+		{ code: '34', name: '安徽' },
+		{ code: '35', name: '福建' },
+		{ code: '36', name: '江西' },
+		{ code: '37', name: '山东' },
+		{ code: '41', name: '河南' },
+		{ code: '42', name: '湖北' },
+		{ code: '43', name: '湖南' },
+		{ code: '44', name: '广东' },
+		{ code: '45', name: '广西' },
+		{ code: '46', name: '海南' },
+		{ code: '50', name: '重庆' },
+		{ code: '51', name: '四川' },
+		{ code: '52', name: '贵州' },
+		{ code: '53', name: '云南' },
+		{ code: '54', name: '西藏' },
+		{ code: '61', name: '陕西' },
+		{ code: '62', name: '甘肃' },
+		{ code: '63', name: '青海' },
+		{ code: '64', name: '宁夏' },
+		{ code: '65', name: '新疆' }
+	];
+
 	// 常量
 	const HOSPITAL_TYPES = [
 		'整形外科医院',
@@ -85,6 +119,13 @@
 	let hospitalLvl = $state(lvl);
 
 	let isLoading = $state(false);
+	let syncLoading = $state(false);
+	/** @type {string} */
+	let selectedProvince = $state('');
+	/** @type {string} */
+	let batchId = $state('');
+	/** @type {{ selected?: number, synced?: number, failed?: number, deletedCount?: number } | null} */
+	let syncResult = $state(null);
 
 	const table = createSvelteTable({
 		get data() {
@@ -153,20 +194,30 @@
 		}
 	});
 
-	const handlySync = async () => {
-		isLoading = true;
+	const handleSync = async (mode) => {
+		if (mode === 'incremental' && !selectedProvince) {
+			return;
+		}
+		syncLoading = true;
+		syncResult = null;
 		try {
-			await fetch('/hospital', {
-				method: 'GET',
-				headers: {
-					'content-type': 'application/json'
-				}
+			const res = await fetch('/hospital', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify({
+					mode,
+					batchId: mode === 'incremental' ? batchId || undefined : undefined,
+					regionCode: mode === 'incremental' ? selectedProvince : undefined,
+					limit: 500,
+					chunkSize: 1000
+				})
 			});
+			syncResult = await res.json();
 			invalidate(window.location.pathname);
 		} catch (error) {
 			console.error(error);
 		} finally {
-			isLoading = false;
+			syncLoading = false;
 		}
 	};
 
@@ -193,9 +244,31 @@
 <div class="w-full">
 	<div class="flex items-center py-4">
 		<div class="flex gap-2">
-			<Button class="" variant="outline" onclick={handlySync}
-				>{isLoading ? '同步中...' : '同步医院经纬度信息'}</Button
-			>
+			<Select.Root type="single" bind:value={selectedProvince}>
+				<Select.Trigger
+					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 inline-flex w-[160px] items-center border bg-background px-[11px] text-sm transition-colors select-none"
+					aria-label="选择省份"
+				>
+					{selectedProvince ? PROVINCES.find((p) => p.code === selectedProvince)?.name ?? '选择省份' : '选择省份'}
+				</Select.Trigger>
+				<Select.Content>
+					{#each PROVINCES as province (province.code)}
+						<Select.Item value={province.code}>{province.name}</Select.Item>
+					{/each}
+				</Select.Content>
+			</Select.Root>
+			<Input
+				placeholder="Batch ID（可选）"
+				value={batchId}
+				oninput={(e) => (batchId = e.currentTarget.value)}
+				class="w-[200px]"
+			/>
+			<Button variant="outline" onclick={() => handleSync('full')} disabled={syncLoading}>
+				{syncLoading ? '同步中...' : '全量同步'}
+			</Button>
+			<Button variant="outline" onclick={() => handleSync('incremental')} disabled={syncLoading || !selectedProvince}>
+				{syncLoading ? '同步中...' : '按省份增量同步'}
+			</Button>
 			<Button class="" variant="outline" onclick={handlyCopyAll}>复制多地址医院</Button>
 			<Input
 				placeholder="Filter name..."
@@ -258,6 +331,12 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
+
+	{#if syncResult}
+		<div class="mb-2 rounded-md border bg-muted/50 px-4 py-2 text-sm">
+			同步完成: 选取 {syncResult.selected ?? 0} 条 | 成功 {syncResult.synced ?? 0} 条 | 失败 {syncResult.failed ?? 0} 条{syncResult.deletedCount != null ? ` | 删除 ${syncResult.deletedCount} 条` : ''}
+		</div>
+	{/if}
 
 	<div class="rounded-md border">
 		<Table.Root class="">
