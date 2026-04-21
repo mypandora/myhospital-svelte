@@ -53,8 +53,8 @@ export async function apiFetch(fetch, url, options) {
 				response.status,
 				errorData.code,
 				errorData.message || `HTTP ${response.status}`,
-				errorData.traceId,
-				errorData.errors
+				errorData.errors,
+				errorData.traceId
 			);
 		}
 

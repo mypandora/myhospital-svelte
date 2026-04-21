@@ -1,5 +1,6 @@
-import { error, redirect } from '@sveltejs/kit';
+import { fail, error, redirect, isRedirect } from '@sveltejs/kit';
 import * as api from '$lib/api/index.js';
+import { ApiError } from '$lib/api/api-error';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, url, fetch }) {
@@ -28,8 +29,15 @@ export const actions = {
 		const data = await request.formData();
 		const id = data.get('id');
 
-		await api.del(fetch, `users/${id}`);
-
-		redirect(307, '/user');
+		try {
+			await api.del(fetch, `users/${id}`);
+			redirect(307, '/user');
+		} catch (error) {
+			if (isRedirect(error)) throw error;
+			if (error instanceof ApiError) {
+				return fail(error.status, { errors: error.message });
+			}
+			return fail(500, { errors: '服务器错误，请稍后再试' });
+		}
 	}
 };

@@ -6,6 +6,7 @@ import { formSchema as basicFormSchema } from './basic-schema';
 import { formSchema as passwordFormSchema } from './password-schema';
 
 import * as api from '$lib/api/index.js';
+import { ApiError } from '$lib/api/api-error';
 
 export async function load({ locals }) {
 	if (!locals.user) redirect(302, '/login');
@@ -30,12 +31,15 @@ export const actions = {
 			photo: data.get('photo')
 		};
 
-		const body = await api.patch(fetch, 'files/upload', user);
-		if (body.errors) {
-			return fail(400, body.errors);
+		try {
+			const body = await api.patch(fetch, 'files/upload', user);
+			locals.user = body.user;
+		} catch (error) {
+			if (error instanceof ApiError) {
+				return fail(error.status, { errors: error.message });
+			}
+			return fail(500, { errors: '服务器错误，请稍后再试' });
 		}
-
-		locals.user = body.user;
 	},
 	save: async ({ cookies, locals, request, fetch }) => {
 		if (!locals.user) error(401);
@@ -50,14 +54,22 @@ export const actions = {
 			photo: data.get('photo')
 		};
 
-		const body = await api.patch(fetch, 'auth/me', user);
-		if (body.errors) {
-			return fail(400, body.errors);
+		try {
+			const body = await api.patch(fetch, 'auth/me', user);
+
+			const value = JSON.stringify({
+					token: locals.token,
+					refreshToken: locals.refreshToken,
+					user: body.user
+				});
+				cookies.set('jwt', value, { path: '/' });
+
+			locals.user = body.user;
+		} catch (error) {
+			if (error instanceof ApiError) {
+				return fail(error.status, { errors: error.message });
+			}
+			return fail(500, { errors: '服务器错误，请稍后再试' });
 		}
-
-		const value = btoa(JSON.stringify(body.user));
-		cookies.set('jwt', value, { path: '/' });
-
-		locals.user = body.user;
 	}
 };

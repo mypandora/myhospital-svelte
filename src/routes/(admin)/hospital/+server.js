@@ -9,32 +9,39 @@ import { ApiError } from '$lib/api/api-error';
 export async function POST({ request, fetch }) {
 	const body = await request.json();
 
-	if (body.mode) {
-		const { mode, batchId, regionCode, limit, retryFailed, chunkSize } = body;
-		let url;
-		if (mode === 'full') {
-			const params = new URLSearchParams();
-			if (chunkSize) params.set('chunkSize', String(chunkSize));
-			url = `hospitals/sync/staging/full?${params.toString()}`;
-		} else {
-			const params = new URLSearchParams();
-			if (batchId) params.set('batchId', batchId);
-			if (regionCode) params.set('regionCode', regionCode);
-			if (limit) params.set('limit', String(limit));
-			if (retryFailed) params.set('retryFailed', 'true');
-			url = `hospitals/sync/staging?${params.toString()}`;
+	try {
+		if (body.mode) {
+			const { mode, batchId, regionCode, limit, retryFailed, chunkSize } = body;
+			let url;
+			if (mode === 'full') {
+				const params = new URLSearchParams();
+				if (chunkSize) params.set('chunkSize', String(chunkSize));
+				url = `hospitals/sync/staging/full?${params.toString()}`;
+			} else {
+				const params = new URLSearchParams();
+				if (batchId) params.set('batchId', batchId);
+				if (regionCode) params.set('regionCode', regionCode);
+				if (limit) params.set('limit', String(limit));
+				if (retryFailed) params.set('retryFailed', 'true');
+				url = `hospitals/sync/staging?${params.toString()}`;
+			}
+			const result = await api.post(fetch, url);
+			return json(result);
 		}
-		const result = await api.post(fetch, url);
-		return json(result);
-	}
 
-	const { id } = body;
-	if (id) {
-		await api.post(fetch, `hospitals/${id}/copy`);
-	} else {
-		await api.post(fetch, 'hospitals/copy');
+		const { id } = body;
+		if (id) {
+			await api.post(fetch, `hospitals/${id}/copy`);
+		} else {
+			await api.post(fetch, 'hospitals/copy');
+		}
+		return new Response(null, { status: 204 });
+	} catch (error) {
+		if (error instanceof ApiError) {
+			return json({ success: false, message: error.message }, { status: error.status });
+		}
+		return json({ success: false, message: '服务器错误' }, { status: 500 });
 	}
-	return new Response(null, { status: 204 });
 }
 
 /**
@@ -44,12 +51,23 @@ export async function POST({ request, fetch }) {
 export async function PATCH({ request, fetch }) {
 	const { id, lng, lat } = await request.json();
 
-	await api.patch(fetch, `hospitals/${id}`, {
-		lng,
-		lat
-	});
+	try {
+		await api.patch(
+			fetch,
+			`hospitals/${id}`,
+			{
+				lng,
+				lat
+			}
+		);
 
-	return new Response(null, { status: 204 });
+		return new Response(null, { status: 204 });
+	} catch (error) {
+		if (error instanceof ApiError) {
+			return json({ success: false, message: error.message }, { status: error.status });
+		}
+		return json({ success: false, message: '服务器错误' }, { status: 500 });
+	}
 }
 
 /**
@@ -61,7 +79,14 @@ export async function PATCH({ request, fetch }) {
 export async function DELETE({ request, fetch }) {
 	const { id } = await request.json();
 
-	await api.del(fetch, `hospitals/${id}`);
+	try {
+		await api.del(fetch, `hospitals/${id}`);
 
-	return new Response(null, { status: 204 });
+		return new Response(null, { status: 204 });
+	} catch (error) {
+		if (error instanceof ApiError) {
+			return json({ success: false, message: error.message }, { status: error.status });
+		}
+		return json({ success: false, message: '服务器错误' }, { status: 500 });
+	}
 }

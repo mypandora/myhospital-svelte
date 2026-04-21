@@ -142,7 +142,7 @@ async function handleTokenRefresh(refreshToken, event) {
 		};
 
 		// 更新 Cookie
-		event.cookies.set('jwt', newJwtData);
+		event.cookies.set('jwt', JSON.stringify(newJwtData), { path: '/' });
 
 		// 更新 locals
 		event.locals.token = newJwtData.token;

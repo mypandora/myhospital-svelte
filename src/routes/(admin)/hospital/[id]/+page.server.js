@@ -1,8 +1,9 @@
-import { fail, error, redirect } from '@sveltejs/kit';
+import { fail, error, redirect, isRedirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema.js';
 import { zod } from 'sveltekit-superforms/adapters';
 import * as api from '$lib/api/index.js';
+import { ApiError } from '$lib/api/api-error';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, fetch, params }) {
@@ -42,12 +43,15 @@ export const actions = {
 			}
 		});
 
-		const body = await api.patch(fetch, `hospitals/${hospital.id}`, hospital);
-
-		if (body.errors) {
-			return fail(401, body);
+		try {
+			await api.patch(fetch, `hospitals/${hospital.id}`, hospital);
+			redirect(307, '/hospital');
+		} catch (error) {
+			if (isRedirect(error)) throw error;
+			if (error instanceof ApiError) {
+				return fail(error.status, { errors: error.message });
+			}
+			return fail(500, { errors: '服务器错误，请稍后再试' });
 		}
-
-		redirect(307, '/hospital');
 	}
 };

@@ -1,8 +1,9 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, isRedirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { formSchema } from './schema';
 import * as api from '$lib/api/index.js';
+import { ApiError } from '$lib/api/api-error';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ parent }) {
@@ -26,12 +27,15 @@ export const actions = {
 			});
 		}
 
-		const body = await api.post(fetch, 'auth/email/register', form.data);
-
-		if (body.errors) {
-			return fail(401, body);
+		try {
+			await api.post(fetch, 'auth/email/register', form.data);
+			redirect(307, '/login');
+		} catch (error) {
+			if (isRedirect(error)) throw error;
+			if (error instanceof ApiError) {
+				return fail(error.status, { form, errors: error.errors || error.message });
+			}
+			return fail(500, { form, errors: '服务器错误，请稍后再试' });
 		}
-
-		redirect(307, '/login');
 	}
 };

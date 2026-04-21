@@ -1,8 +1,9 @@
-import { fail, error, redirect } from '@sveltejs/kit';
+import { fail, error, redirect, isRedirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import * as api from '$lib/api/index.js';
+import { ApiError } from '$lib/api/api-error';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, fetch, params }) {
@@ -36,13 +37,16 @@ export const actions = {
 			user.email = newEmail;
 		}
 
-		const body = await api.patch(fetch, `users/${user.id}`, user);
-
-		if (body.errors) {
-			return fail(401, body);
+		try {
+			await api.patch(fetch, `users/${user.id}`, user);
+			redirect(307, '/user');
+		} catch (error) {
+			if (isRedirect(error)) throw error;
+			if (error instanceof ApiError) {
+				return fail(error.status, { errors: error.message });
+			}
+			return fail(500, { errors: '服务器错误，请稍后再试' });
 		}
-
-		redirect(307, '/user');
 	},
 	delete: async ({ locals, request, fetch }) => {
 		if (!locals.user) error(401);
@@ -50,7 +54,15 @@ export const actions = {
 		const data = await request.formData();
 		const id = data.get('id');
 
-		await api.del(fetch, `users/${id}`);
-		redirect(307, '/user');
+		try {
+			await api.del(fetch, `users/${id}`);
+			redirect(307, '/user');
+		} catch (error) {
+			if (isRedirect(error)) throw error;
+			if (error instanceof ApiError) {
+				return fail(error.status, { errors: error.message });
+			}
+			return fail(500, { errors: '服务器错误，请稍后再试' });
+		}
 	}
 };

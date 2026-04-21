@@ -77,9 +77,6 @@ export const actions = {
 
 		try {
 			const body = await api.post(fetch, 'auth/email/login', form.data);
-			if (body?.errors) {
-				return fail(401, body);
-			}
 
 			const value = JSON.stringify(body);
 			cookies.set('jwt', value, { path: '/' });
@@ -90,7 +87,7 @@ export const actions = {
 			if (error instanceof ApiError) {
 				return fail(error.status, {
 					form,
-					errors: error.data
+					errors: error.errors || error.message
 				});
 			}
 
