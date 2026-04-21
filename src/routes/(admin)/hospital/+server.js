@@ -1,11 +1,12 @@
 import { json } from '@sveltejs/kit';
-import * as api from '$lib/api.js';
+import * as api from '$lib/api/index.js';
+import { ApiError } from '$lib/api/api-error';
 
 /**
  * 同步医院数据（全量 / 增量） + 复制医院
  * @type {import('./$types').RequestHandler}
  */
-export async function POST({ request, cookies }) {
+export async function POST({ request, fetch }) {
 	const body = await request.json();
 
 	if (body.mode) {
@@ -23,15 +24,15 @@ export async function POST({ request, cookies }) {
 			if (retryFailed) params.set('retryFailed', 'true');
 			url = `hospitals/sync/staging?${params.toString()}`;
 		}
-		const result = await api.post(url, null, { cookies });
+		const result = await api.post(fetch, url);
 		return json(result);
 	}
 
 	const { id } = body;
 	if (id) {
-		await api.post(`hospitals/${id}/copy`, {}, { cookies });
+		await api.post(fetch, `hospitals/${id}/copy`);
 	} else {
-		await api.post('hospitals/copy', {}, { cookies });
+		await api.post(fetch, 'hospitals/copy');
 	}
 	return new Response(null, { status: 204 });
 }
@@ -40,17 +41,13 @@ export async function POST({ request, cookies }) {
  * 定位医院，修改医院的经纬度信息
  * @type {import('./$types').RequestHandler}
  */
-export async function PATCH({ request, cookies }) {
+export async function PATCH({ request, fetch }) {
 	const { id, lng, lat } = await request.json();
 
-	await api.patch(
-		`hospitals/${id}`,
-		{
-			lng,
-			lat
-		},
-		{ cookies }
-	);
+	await api.patch(fetch, `hospitals/${id}`, {
+		lng,
+		lat
+	});
 
 	return new Response(null, { status: 204 });
 }
@@ -61,10 +58,10 @@ export async function PATCH({ request, cookies }) {
  * @type {import('./$types').RequestHandler}
  *
  */
-export async function DELETE({ request, cookies }) {
+export async function DELETE({ request, fetch }) {
 	const { id } = await request.json();
 
-	await api.del(`hospitals/${id}`, { cookies });
+	await api.del(fetch, `hospitals/${id}`);
 
 	return new Response(null, { status: 204 });
 }

@@ -2,7 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { formSchema } from './schema';
-import * as api from '$lib/api.js';
+import * as api from '$lib/api/index.js';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ parent }) {
@@ -18,7 +18,7 @@ export async function load({ parent }) {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ request, fetch }) => {
 		const form = await superValidate(request, zod(formSchema));
 		if (!form.valid) {
 			return fail(400, {
@@ -26,7 +26,7 @@ export const actions = {
 			});
 		}
 
-		const body = await api.post('auth/email/register', form.data);
+		const body = await api.post(fetch, 'auth/email/register', form.data);
 
 		if (body.errors) {
 			return fail(401, body);

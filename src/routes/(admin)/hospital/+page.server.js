@@ -1,8 +1,8 @@
 import { redirect } from '@sveltejs/kit';
-import * as api from '$lib/api';
+import * as api from '$lib/api/index.js';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ locals, url, cookies }) {
+export async function load({ locals, url, fetch }) {
 	if (!locals.user) redirect(302, '/login');
 
 	/**
@@ -36,7 +36,7 @@ export async function load({ locals, url, cookies }) {
 			lvl
 		}
 	});
-	const { data, total } = await api.get(`hospitals/pagination?${params}`, { cookies });
+	const { data, total } = await api.get(fetch, `hospitals/pagination?${params}`);
 
 	return {
 		hospitals: data,

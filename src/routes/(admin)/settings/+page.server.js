@@ -5,7 +5,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { formSchema as basicFormSchema } from './basic-schema';
 import { formSchema as passwordFormSchema } from './password-schema';
 
-import * as api from '$lib/api.js';
+import * as api from '$lib/api/index.js';
 
 export async function load({ locals }) {
 	if (!locals.user) redirect(302, '/login');
@@ -17,7 +17,7 @@ export async function load({ locals }) {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-	upload: async ({ cookies, locals, request }) => {
+	upload: async ({ cookies, locals, request, fetch }) => {
 		if (!locals.user) error(401);
 
 		const data = await request.formData();
@@ -30,14 +30,14 @@ export const actions = {
 			photo: data.get('photo')
 		};
 
-		const body = await api.patch('files/upload', user, { cookies });
+		const body = await api.patch(fetch, 'files/upload', user);
 		if (body.errors) {
 			return fail(400, body.errors);
 		}
 
 		locals.user = body.user;
 	},
-	save: async ({ cookies, locals, request }) => {
+	save: async ({ cookies, locals, request, fetch }) => {
 		if (!locals.user) error(401);
 
 		const data = await request.formData();
@@ -50,7 +50,7 @@ export const actions = {
 			photo: data.get('photo')
 		};
 
-		const body = await api.patch('auth/me', user, { cookies });
+		const body = await api.patch(fetch, 'auth/me', user);
 		if (body.errors) {
 			return fail(400, body.errors);
 		}

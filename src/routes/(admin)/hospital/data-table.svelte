@@ -249,7 +249,9 @@
 					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 inline-flex w-[160px] items-center border bg-background px-[11px] text-sm transition-colors select-none"
 					aria-label="选择省份"
 				>
-					{selectedProvince ? PROVINCES.find((p) => p.code === selectedProvince)?.name ?? '选择省份' : '选择省份'}
+					{selectedProvince
+						? (PROVINCES.find((p) => p.code === selectedProvince)?.name ?? '选择省份')
+						: '选择省份'}
 				</Select.Trigger>
 				<Select.Content>
 					{#each PROVINCES as province (province.code)}
@@ -266,7 +268,11 @@
 			<Button variant="outline" onclick={() => handleSync('full')} disabled={syncLoading}>
 				{syncLoading ? '同步中...' : '全量同步'}
 			</Button>
-			<Button variant="outline" onclick={() => handleSync('incremental')} disabled={syncLoading || !selectedProvince}>
+			<Button
+				variant="outline"
+				onclick={() => handleSync('incremental')}
+				disabled={syncLoading || !selectedProvince}
+			>
 				{syncLoading ? '同步中...' : '按省份增量同步'}
 			</Button>
 			<Button class="" variant="outline" onclick={handlyCopyAll}>复制多地址医院</Button>
@@ -334,7 +340,8 @@
 
 	{#if syncResult}
 		<div class="mb-2 rounded-md border bg-muted/50 px-4 py-2 text-sm">
-			同步完成: 选取 {syncResult.selected ?? 0} 条 | 成功 {syncResult.synced ?? 0} 条 | 失败 {syncResult.failed ?? 0} 条{syncResult.deletedCount != null ? ` | 删除 ${syncResult.deletedCount} 条` : ''}
+			同步完成: 选取 {syncResult.selected ?? 0} 条 | 成功 {syncResult.synced ?? 0} 条 | 失败 {syncResult.failed ??
+				0} 条{syncResult.deletedCount != null ? ` | 删除 ${syncResult.deletedCount} 条` : ''}
 		</div>
 	{/if}
 
