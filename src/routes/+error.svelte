@@ -4,7 +4,12 @@
 
 	const errorConfig = {
 		400: { title: '请求错误', description: '请求参数有误，请检查后重试。' },
-		401: { title: '未登录', description: '登录已过期，请重新登录。', href: '/login', linkText: '去登录' },
+		401: {
+			title: '未登录',
+			description: '登录已过期，请重新登录。',
+			href: '/login',
+			linkText: '去登录'
+		},
 		403: { title: '无权限', description: '您没有权限访问此页面。' },
 		404: { title: '页面不存在', description: '您访问的页面不存在。' },
 		422: { title: '参数验证失败', description: '提交的数据不符合要求，请检查后重试。' },

@@ -58,11 +58,11 @@ export const actions = {
 			const body = await api.patch(fetch, 'auth/me', user);
 
 			const value = JSON.stringify({
-					token: locals.token,
-					refreshToken: locals.refreshToken,
-					user: body.user
-				});
-				cookies.set('jwt', value, { path: '/' });
+				token: locals.token,
+				refreshToken: locals.refreshToken,
+				user: body.user
+			});
+			cookies.set('jwt', value, { path: '/' });
 
 			locals.user = body.user;
 		} catch (error) {

@@ -52,14 +52,10 @@ export async function PATCH({ request, fetch }) {
 	const { id, lng, lat } = await request.json();
 
 	try {
-		await api.patch(
-			fetch,
-			`hospitals/${id}`,
-			{
-				lng,
-				lat
-			}
-		);
+		await api.patch(fetch, `hospitals/${id}`, {
+			lng,
+			lat
+		});
 
 		return new Response(null, { status: 204 });
 	} catch (error) {

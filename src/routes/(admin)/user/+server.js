@@ -7,11 +7,9 @@ export async function PATCH({ request, fetch }) {
 	const { id, status } = await request.json();
 
 	try {
-		const body = await api.patch(
-			fetch,
-			`users/${id}`,
-			{ status: { id: status === 'Active' ? 1 : 2 } }
-		);
+		const body = await api.patch(fetch, `users/${id}`, {
+			status: { id: status === 'Active' ? 1 : 2 }
+		});
 
 		return json({ success: true, data: body });
 	} catch (error) {
