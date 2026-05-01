@@ -21,7 +21,8 @@ export async function POST({ fetch, request }) {
 		return json({ success: true, data: hospitals });
 	} catch (err) {
 		if (err instanceof ApiError) {
-			return json({ success: false, message: err.message }, { status: err.status });
+			const status = err.status >= 200 && err.status <= 599 ? err.status : 500;
+			return json({ success: false, message: err.message }, { status });
 		}
 		console.error('[Hospital API Error]:', err);
 		return json({ success: false, message: '后端异常' }, { status: 500 });
