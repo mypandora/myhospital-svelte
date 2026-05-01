@@ -16,15 +16,15 @@
 		</li>
 		<li class="gap-3">
 			<span class="mr-2 text-gray-900">医院编码</span>
-			{hospital?.code}
+			{hospital?.institutionCode}
 		</li>
 		<li class="gap-3">
 			<span class="mr-2 text-gray-900">医院等级</span>
-			{hospital?.lvl}
+			{hospital?.levelName}
 		</li>
 		<li class="gap-3">
 			<span class="mr-2 text-gray-900">医院类别</span>
-			{hospital?.type}
+			{hospital?.typeName}
 		</li>
 		<li class="gap-3">
 			<span class="mr-2 text-gray-900">单位地址</span>

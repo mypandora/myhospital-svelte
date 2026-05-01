@@ -9,16 +9,16 @@ export async function load({ locals, url, fetch }) {
 	 * @typedef {Object} QueryParams
 	 * @property {string} [page]
 	 * @property {string} [limit]
-	 * @property {string} [type]
-	 * @property {string} [lvl]
+	 * @property {string} [typeName]
+	 * @property {string} [levelName]
 	 * @property {string} [sort]
 	 */
 	/** @type {QueryParams} */
 	const {
 		page = '1',
 		limit = '10',
-		type = '',
-		lvl = '',
+		typeName = '',
+		levelName = '',
 		sort = 'zipCode,asc'
 	} = Object.fromEntries(url.searchParams);
 
@@ -32,8 +32,8 @@ export async function load({ locals, url, fetch }) {
 		limit,
 		sort: sortParam,
 		filter: {
-			type,
-			lvl
+			typeName,
+			levelName
 		}
 	});
 	const { data, total } = await api.get(fetch, `hospitals/pagination?${params}`);
@@ -43,8 +43,8 @@ export async function load({ locals, url, fetch }) {
 		total: total,
 		page: parseInt(page, 10),
 		limit: parseInt(limit, 10),
-		type,
-		lvl
+		typeName,
+		levelName
 	};
 }
 

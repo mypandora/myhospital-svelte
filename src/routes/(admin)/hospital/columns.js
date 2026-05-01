@@ -35,16 +35,16 @@ export const columns = [
 			})
 	},
 	{
-		accessorKey: 'code',
+		accessorKey: 'institutionCode',
 		header: '医院编码',
-		size: 270 //set column size for this column
+		size: 270
 	},
 	{
-		accessorKey: 'lvl',
+		accessorKey: 'levelName',
 		header: '医院等级'
 	},
 	{
-		accessorKey: 'type',
+		accessorKey: 'typeName',
 		header: '医院类型'
 	},
 	{

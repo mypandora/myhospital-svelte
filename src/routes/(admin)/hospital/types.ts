@@ -5,10 +5,10 @@ export interface Hospital {
 	id: number;
 	city: string;
 	name: string;
-	code: string;
+	institutionCode: string;
 	district: string;
-	type: string;
-	lvl: string;
+	typeName: string;
+	levelName: string;
 	address: string;
 	zipCode: string;
 	introduction: string;

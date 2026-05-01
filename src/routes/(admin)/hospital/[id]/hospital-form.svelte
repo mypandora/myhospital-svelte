@@ -38,30 +38,30 @@
 			{/snippet}
 		</Form.Control>
 	</Form.Field>
-	<Form.Field {form} name="code" class="space-y-2">
+	<Form.Field {form} name="institutionCode" class="space-y-2">
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label class="text-sm">医院编码</Form.Label>
-				<Input class="" {...props} type="text" bind:value={$formData.code} required />
-				<Form.FieldErrors class="h-5" errorClasses="">{$errors.code}</Form.FieldErrors>
+				<Input class="" {...props} type="text" bind:value={$formData.institutionCode} required />
+				<Form.FieldErrors class="h-5" errorClasses="">{$errors.institutionCode}</Form.FieldErrors>
 			{/snippet}
 		</Form.Control>
 	</Form.Field>
-	<Form.Field {form} name="lvl" class="space-y-2">
+	<Form.Field {form} name="levelName" class="space-y-2">
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label class="text-sm">医院等级</Form.Label>
-				<Input class="" {...props} type="text" bind:value={$formData.lvl} required />
-				<Form.FieldErrors class="h-5" errorClasses="">{$errors.lvl}</Form.FieldErrors>
+				<Input class="" {...props} type="text" bind:value={$formData.levelName} required />
+				<Form.FieldErrors class="h-5" errorClasses="">{$errors.levelName}</Form.FieldErrors>
 			{/snippet}
 		</Form.Control>
 	</Form.Field>
-	<Form.Field {form} name="type" class="space-y-2">
+	<Form.Field {form} name="typeName" class="space-y-2">
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label class="text-sm">医院类型</Form.Label>
-				<Input class="" {...props} type="text" bind:value={$formData.type} required />
-				<Form.FieldErrors class="h-5" errorClasses="">{$errors.type}</Form.FieldErrors>
+				<Input class="" {...props} type="text" bind:value={$formData.typeName} required />
+				<Form.FieldErrors class="h-5" errorClasses="">{$errors.typeName}</Form.FieldErrors>
 			{/snippet}
 		</Form.Control>
 	</Form.Field>

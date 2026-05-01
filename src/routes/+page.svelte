@@ -7,7 +7,7 @@
 	import HospitalDetail from './index/popup-detail.svelte';
 	import HospitalList from './index/popup-list.svelte';
 	import LoginAvatar from './index/avatar.svelte';
-	import { Expand, Shrink, Sun, Moon } from '@lucide/svelte/icons';
+	import { Expand, Shrink, Sun, Moon, MapPin, CircleDot, MousePointerClick } from '@lucide/svelte/icons';
 
 	let AMapLoader = null;
 	/** @type {Hospital | undefined} */
@@ -16,6 +16,8 @@
 	let hospitalList = $state([]);
 	/** @type {Set<number>} */
 	let allHospitalIds = $state(new SvelteSet());
+	/** @type {SvelteMap<number, Hospital>} */
+	const hospitalDataMap = new SvelteMap();
 	/** @type {HTMLElement | undefined} */
 	let popupDetail = $state();
 	/** @type {AMap.Map | null} */
@@ -67,6 +69,17 @@
 
 	/** @type {number} */
 	const MIN_RADIUS = 50; // 最小半径50米
+
+	/** @type {number | undefined} */
+	let selectedCircleId = $state(undefined);
+
+	/** @type {Hospital[]} */
+	let selectedCircleHospitals = $derived.by(() => {
+		if (selectedCircleId === undefined) return [];
+		const markerIds = circleMarkerMap.get(selectedCircleId);
+		if (!markerIds) return [];
+		return [...markerIds].map((id) => hospitalDataMap.get(id)).filter(Boolean);
+	});
 
 	async function initMap() {
 		try {
@@ -171,14 +184,12 @@
 			'删除此圆',
 			() => {
 				if (selectedCircle) {
-					// 移除圆内的所有 marker（只删除不属于其他圆的）
+					const delId = selectedCircle.getExtData()?.id;
 					removeMarker(selectedCircle);
-					// 移除圆
 					removeCircle(selectedCircle);
-					// 从列表中移除
 					circles = circles.filter((c) => c !== selectedCircle);
+					if (delId === selectedCircleId) selectedCircleId = undefined;
 					selectedCircle = undefined;
-					// 关闭右键菜单
 					contextMenu?.close();
 				}
 			},
@@ -204,6 +215,7 @@
 		});
 		circles = [];
 		circleMarkerMap.clear();
+		selectedCircleId = undefined;
 		selectedCircle = undefined;
 	}
 
@@ -228,10 +240,10 @@
 		for (let i = circles.length - 1; i >= 0; i--) {
 			const c = circles[i];
 			if (c.contains(clickLngLat)) {
-				// 点击在圆内，关闭其他编辑器，打开该圆的编辑器
 				closeAllEditors();
 				const circleId = c.getExtData()?.id;
 				if (circleId !== undefined) {
+					selectedCircleId = circleId;
 					const editor = circleEditors.get(circleId);
 					if (editor) {
 						editor.open();
@@ -241,8 +253,8 @@
 			}
 		}
 
-		// 点击空白区域，关闭所有编辑器
 		closeAllEditors();
+		selectedCircleId = undefined;
 
 		// 不在任何圆内，正常绘制逻辑
 		if (!isDrawing) {
@@ -343,6 +355,7 @@
 		// 初始化圆的 marker 映射
 		const circleId = finishedCircle.getExtData()?.id || Date.now();
 		circleMarkerMap.set(circleId, new SvelteSet());
+		selectedCircleId = circleId;
 
 		handleFetch({ lng: center.lng, lat: center.lat, radius });
 	}
@@ -440,6 +453,7 @@
 		newList.forEach((item) => {
 			const { name, lng, lat } = item;
 			if (!lat || !lng) return;
+			hospitalDataMap.set(item.id, item);
 			/* global AMap */
 			const marker = new AMap.Marker({
 				map,
@@ -524,6 +538,7 @@
 					markerMap.delete(id);
 				}
 				allHospitalIds.delete(id);
+				hospitalDataMap.delete(id);
 				hospitalList = hospitalList.filter((h) => h.id !== id);
 			}
 		});
@@ -596,6 +611,18 @@
 		if (infoWindow) {
 			hospital = undefined;
 			infoWindow.close();
+		}
+	}
+
+	function deselectCircle() {
+		selectedCircleId = undefined;
+		closeAllEditors();
+	}
+
+	/** @param {KeyboardEvent} e */
+	function handleKeyDown(e) {
+		if (e.key === 'Escape') {
+			deselectCircle();
 		}
 	}
 
@@ -730,6 +757,7 @@
 
 	onMount(() => {
 		initMap();
+		window.addEventListener('keydown', handleKeyDown);
 	});
 
 	onDestroy(() => {
@@ -765,9 +793,13 @@
 		});
 		markerMap.clear();
 		circleMarkerMap.clear();
+		hospitalDataMap.clear();
 
 		map?.destroy();
 		map = null;
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('keydown', handleKeyDown);
+		}
 	});
 </script>
 
@@ -775,12 +807,43 @@
 	<title>首页</title>
 </svelte:head>
 
-<div id="map" class="relative flex h-dvh flex-col"></div>
+<div class="relative flex h-dvh flex-col">
+	<header
+		class="relative z-20 flex shrink-0 items-center justify-between px-4 py-2 shadow-md backdrop-blur-sm bg-white/90 dark:bg-gray-900/90"
+	>
+		<div class="flex items-center gap-2">
+			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-red-500 text-white">
+				<MapPin class="h-5 w-5" />
+			</div>
+			<div class="flex flex-col leading-tight">
+				<span class="text-sm font-bold text-gray-900 dark:text-white">中国医保医院一张图</span>
+				<span class="text-[10px] text-gray-400">National Medical Insurance Hospital Map</span>
+			</div>
+		</div>
+		<div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+			<div class="hidden items-center gap-1 sm:flex">
+				<span class="flex h-5 w-5 items-center justify-center rounded bg-blue-100 dark:bg-blue-900/50">
+					<CircleDot class="h-3 w-3 text-blue-600 dark:text-blue-400" />
+				</span>
+				<span>左键画圆</span>
+			</div>
+			<div class="hidden items-center gap-1 sm:flex">
+				<span class="flex h-5 w-5 items-center justify-center rounded bg-blue-100 dark:bg-blue-900/50">
+					<MousePointerClick class="h-3 w-3 text-blue-600 dark:text-blue-400" />
+				</span>
+				<span>搜索医院</span>
+			</div>
+			<span class="text-gray-300 dark:text-gray-600">|</span>
+			<span class="text-[11px]">右键删除圆 &middot; 拖拽调整范围</span>
+		</div>
+	</header>
+	<div id="map" class="relative flex-1"></div>
+</div>
 
 <HospitalDetail {hospital} bind:domRef={popupDetail} />
 
-{#if hospitalList.length > 0}
-	<HospitalList {hospitalList} />
+{#if selectedCircleId !== undefined && selectedCircleHospitals.length > 0}
+	<HospitalList hospitalList={selectedCircleHospitals} onclose={deselectCircle} />
 {/if}
 
 <LoginAvatar class="absolute top-4 right-4 z-10" />
@@ -811,10 +874,8 @@
 		title={isFullscreen ? '显示控件' : '隐藏控件'}
 	>
 		{#if isFullscreen}
-			<!-- 隐藏状态图标 - 眼睛关闭 -->
 			<Shrink />
 		{:else}
-			<!-- 显示状态图标 - 眼睛打开 -->
 			<Expand />
 		{/if}
 	</Button>

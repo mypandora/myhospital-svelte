@@ -29,17 +29,24 @@ interface User {
 
 interface Hospital {
 	id: string;
-	city?: string | null;
-	name: string | null;
-	code: string | null;
-	district: string | null;
-	type: string | null;
-	lvl: string | null;
+	institutionCode: string;
+	name: string;
+	typeCode: string | null;
+	typeName: string | null;
+	levelCode: string | null;
+	levelName: string | null;
+	hospitalGradeCode: string | null;
 	address: string | null;
+	regionCode: string | null;
+	city: string | null;
+	district: string | null;
+	lat: number | null;
+	lng: number | null;
+	socialCreditCode: string | null;
+	nature: string | null;
+	electronicInsuranceEnabled: boolean | null;
 	zipCode: string | null;
 	introduction: string | null;
-	lng: number | null;
-	lat: number | null;
 	createdAt: Date;
 	updatedAt: Date;
 }

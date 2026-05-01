@@ -104,8 +104,8 @@
 	];
 	const HOSPITAL_LEVELS = ['未评级', '一级', '二级', '三级'];
 
-	/** @type {{data?: Array<import('./types').Hospital>, columns: import('@tanstack/table-core').ColumnDef<import('./types').Hospital>[], total?: number, pageIndex?: number, pageSize?: number, type?: string, lvl?: string}} */
-	let { data, columns, total = 0, pageIndex = 1, pageSize = 10, type = '', lvl = '' } = $props();
+	/** @type {{data?: Array<import('./types').Hospital>, columns: import('@tanstack/table-core').ColumnDef<import('./types').Hospital>[], total?: number, pageIndex?: number, pageSize?: number, typeName?: string, levelName?: string}} */
+	let { data, columns, total = 0, pageIndex = 1, pageSize = 10, typeName = '', levelName = '' } = $props();
 
 	/** @type {import('@tanstack/table-core').SortingState} */
 	let sorting = $state([]);
@@ -114,9 +114,9 @@
 	/** @type {import('@tanstack/table-core').RowSelectionState} */
 	let rowSelection = $state({});
 	/** @type {string} */
-	let hospitalType = $state(type);
+	let hospitalTypeName = $state(typeName);
 	/** @type {string} */
-	let hospitalLvl = $state(lvl);
+	let hospitalLevelName = $state(levelName);
 
 	let isLoading = $state(false);
 	let syncLoading = $state(false);
@@ -142,11 +142,11 @@
 			if (typeof updater === 'function') {
 				const newPagination = updater({ pageIndex, pageSize });
 				goto(
-					`?page=${newPagination.pageIndex}&limit=${newPagination.pageSize}&type=${hospitalType}&lvl=${hospitalLvl}`
+					`?page=${newPagination.pageIndex}&limit=${newPagination.pageSize}&typeName=${hospitalTypeName}&levelName=${hospitalLevelName}`
 				);
 			} else {
 				goto(
-					`?page=${updater.pageIndex}&limit=${updater.pageSize}&type=${hospitalType}&lvl=${hospitalLvl}`
+					`?page=${updater.pageIndex}&limit=${updater.pageSize}&typeName=${hospitalTypeName}&levelName=${hospitalLevelName}`
 				);
 			}
 		},
@@ -162,7 +162,7 @@
 				.map((sort) => `${sort.id},${sort.desc ? 'desc' : 'asc'}`)
 				.join('&');
 
-			const newUrl = `?page=${pageIndex}&limit=${pageSize}&sort=${sortParams}&type=${hospitalType}&lvl=${hospitalLvl}`;
+			const newUrl = `?page=${pageIndex}&limit=${pageSize}&sort=${sortParams}&typeName=${hospitalTypeName}&levelName=${hospitalLevelName}`;
 
 			// Navigate to the new URL
 			goto(newUrl);
@@ -287,12 +287,12 @@
 				}}
 				class="max-w-sm"
 			/>
-			<Select.Root type="single" bind:value={hospitalType} onValueChange={handleTypeChange}>
+			<Select.Root type="single" bind:value={hospitalTypeName} onValueChange={handleTypeChange}>
 				<Select.Trigger
 					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 inline-flex w-[296px] items-center border bg-background px-[11px] text-sm transition-colors select-none"
 					aria-label="请选择医院类型"
 				>
-					{hospitalType}
+					{hospitalTypeName}
 				</Select.Trigger>
 
 				<Select.Content>
@@ -301,12 +301,12 @@
 					{/each}
 				</Select.Content>
 			</Select.Root>
-			<Select.Root type="single" bind:value={hospitalLvl}>
+			<Select.Root type="single" bind:value={hospitalLevelName}>
 				<Select.Trigger
 					class="h-input rounded-9px border-border-input placeholder:text-foreground-alt/50 inline-flex w-[296px] items-center border bg-background px-[11px] text-sm transition-colors select-none"
 					aria-label="请选择医院评级"
 				>
-					{hospitalLvl}
+					{hospitalLevelName}
 				</Select.Trigger>
 
 				<Select.Content class="">

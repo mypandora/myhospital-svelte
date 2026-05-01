@@ -28,9 +28,9 @@ export const actions = {
 		const hospital = {
 			id: data.get('id'),
 			name: data.get('name'),
-			code: data.get('code'),
-			lvl: data.get('lvl'),
-			type: data.get('type'),
+			institutionCode: data.get('institutionCode'),
+			levelName: data.get('levelName'),
+			typeName: data.get('typeName'),
 			district: data.get('district'),
 			address: data.get('address'),
 			introduction: data.get('introduction'),

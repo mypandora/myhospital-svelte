@@ -16,6 +16,6 @@
 	total={data.total}
 	pageIndex={data.page}
 	pageSize={data.limit}
-	type={data.type}
-	lvl={data.lvl}
+	typeName={data.typeName}
+	levelName={data.levelName}
 />
